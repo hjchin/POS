@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import pos.com.pos.R;
+import pos.com.pos.allItems.model.AllItemsItem;
+import pos.com.pos.allItems.view.AllItemsFragment;
 import pos.com.pos.data.Item;
 import pos.com.pos.databinding.ActivityMainBinding;
 import pos.com.pos.discount.model.DiscountItem;
@@ -15,8 +17,8 @@ import pos.com.pos.library.view.LibraryFragment;
 public class MainActivity extends AppCompatActivity implements
         MainView,
         LibraryFragment.Callback,
-        DiscountFragment.Callback{
-
+        DiscountFragment.Callback,
+        AllItemsFragment.Callback{
 
     private ActivityMainBinding binding;
     private MainPresenter presenter;
@@ -44,7 +46,9 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void showItemListFragment() {
-
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.leftFrame,AllItemsFragment.newInstance());
+        transaction.commit();
     }
 
     @Override
@@ -52,10 +56,19 @@ public class MainActivity extends AppCompatActivity implements
         if(item instanceof DiscountItem){
             showDiscountFragment();
         }
+
+        if(item instanceof AllItemsItem){
+            showItemListFragment();
+        }
     }
 
     @Override
     public void onItemClick(DiscountItem item) {
+
+    }
+
+    @Override
+    public void onItemClick(AllItemsItem item) {
 
     }
 }

@@ -9,6 +9,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import pos.com.pos.allItems.view.AllItemsFragment;
 import pos.com.pos.discount.view.DiscountFragment;
 import pos.com.pos.library.view.LibraryFragment;
 import pos.com.pos.main.MainActivity;
@@ -41,5 +42,12 @@ public class MainActivityTest {
         onView(withText(LibraryFragment.libraryItemArrayList.get(0).name)).check(matches(isDisplayed()));
         onView(withId(R.id.list)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
         onView(withText(DiscountFragment.discountItemArrayList.get(0).name)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testShowAllItemsFragment(){
+        onView(withText(LibraryFragment.libraryItemArrayList.get(1).name)).check(matches(isDisplayed()));
+        onView(withId(R.id.list)).perform(RecyclerViewActions.actionOnItemAtPosition(1,click()));
+        onView(withText(AllItemsFragment.allItemsItemArrayList.get(0).name)).check(matches(isDisplayed()));
     }
 }

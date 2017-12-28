@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import pos.com.pos.R;
+import pos.com.pos.allItems.model.AllItemsItem;
 import pos.com.pos.data.Item;
 import pos.com.pos.discount.model.DiscountItem;
 import pos.com.pos.library.model.LibraryItem;
@@ -31,7 +32,7 @@ public class LibraryFragment extends Fragment {
     static{
         libraryItemArrayList = new ArrayList<>();
         libraryItemArrayList.add(new DiscountItem("discount", "All Discounts"));
-        libraryItemArrayList.add(new LibraryItem("item", "All Items"));
+        libraryItemArrayList.add(new AllItemsItem("item", "All Items"));
     }
 
     public LibraryFragment() {
