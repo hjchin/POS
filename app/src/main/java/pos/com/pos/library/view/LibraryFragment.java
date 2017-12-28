@@ -1,4 +1,4 @@
-package pos.com.pos.library;
+package pos.com.pos.library.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import pos.com.pos.R;
+import pos.com.pos.data.Item;
+import pos.com.pos.discount.model.DiscountItem;
 import pos.com.pos.library.model.LibraryItem;
 
 /**
@@ -24,11 +26,11 @@ public class LibraryFragment extends Fragment {
 
     private Callback callback;
 
-    public static ArrayList<LibraryItem> libraryItemArrayList;
+    public static ArrayList<Item> libraryItemArrayList;
 
     static{
         libraryItemArrayList = new ArrayList<>();
-        libraryItemArrayList.add(new LibraryItem("discount", "All Discounts"));
+        libraryItemArrayList.add(new DiscountItem("discount", "All Discounts"));
         libraryItemArrayList.add(new LibraryItem("item", "All Items"));
     }
 
@@ -43,8 +45,6 @@ public class LibraryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -80,6 +80,6 @@ public class LibraryFragment extends Fragment {
     }
 
     public interface Callback {
-        void onItemClick(LibraryItem item);
+        void onItemClick(Item item);
     }
 }

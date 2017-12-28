@@ -1,4 +1,4 @@
-package pos.com.pos.library.model;
+package pos.com.pos.discount.model;
 
 import pos.com.pos.data.Item;
 
@@ -6,9 +6,9 @@ import pos.com.pos.data.Item;
  * Created by HJ Chin on 28/12/2017.
  */
 
-public class LibraryItem extends Item{
+public class DiscountItem extends Item {
 
-    public LibraryItem(String id, String name){
+    public DiscountItem(String id, String name){
         this.id = id;
         this.name = name;
     }
