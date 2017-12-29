@@ -6,33 +6,47 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import pos.com.pos.R;
-import pos.com.pos.allItems.model.AllItemsItem;
-import pos.com.pos.databinding.FragmentItemBinding;
+import pos.com.pos.allItems.model.SKUItem;
+import pos.com.pos.databinding.FragmentSkuItemBinding;
 
 import java.util.List;
 
-public class AllItemsRecyclerViewAdapter extends RecyclerView.Adapter<AllItemsRecyclerViewAdapter.ViewHolder> {
+public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHolder> {
 
-    private final List<AllItemsItem> values;
+    private  List<SKUItem> values;
     private final ItemListFragment.Callback callback;
 
-    public AllItemsRecyclerViewAdapter(List<AllItemsItem> items, ItemListFragment.Callback listener) {
+    public ItemListAdapter(List<SKUItem> items,
+                           ItemListFragment.Callback listener) {
         values = items;
         callback = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        FragmentItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.fragment_item, parent,false);
+        FragmentSkuItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.fragment_sku_item, parent,false);
         return new ViewHolder(binding);
+    }
+
+    public void setValues(List<SKUItem> items){
+        values = items;
+        notifyDataSetChanged();
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.item = values.get(position);
-        holder.binding.id.setText(values.get(position).id);
-        holder.binding.name.setText(values.get(position).name);
+
+        Glide
+            .with(holder.binding.getRoot().getContext())
+            .load(holder.item.thumbnailUrl)
+            .into(holder.binding.itemImage);
+
+        holder.binding.name.setText(holder.item.title);
+        holder.binding.price.setText("$"+holder.item.price);
 
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,10 +65,10 @@ public class AllItemsRecyclerViewAdapter extends RecyclerView.Adapter<AllItemsRe
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public AllItemsItem item;
-        FragmentItemBinding binding;
+        public SKUItem item;
+        FragmentSkuItemBinding binding;
 
-        ViewHolder(FragmentItemBinding binding ) {
+        ViewHolder(FragmentSkuItemBinding binding ) {
             super(binding.getRoot());
             this.binding = binding;
         }

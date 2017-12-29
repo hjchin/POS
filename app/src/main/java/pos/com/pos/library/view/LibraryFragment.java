@@ -5,7 +5,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import pos.com.pos.R;
-import pos.com.pos.allItems.model.AllItemsItem;
+import pos.com.pos.allItems.view.ItemListItem;
 import pos.com.pos.data.Item;
 import pos.com.pos.databinding.FragmentItemListBinding;
 import pos.com.pos.discount.model.DiscountItem;
@@ -33,7 +32,7 @@ public class LibraryFragment extends Fragment {
     static{
         libraryItemArrayList = new ArrayList<>();
         libraryItemArrayList.add(new DiscountItem("discount", "All Discounts"));
-        libraryItemArrayList.add(new AllItemsItem("item", "All Items"));
+        libraryItemArrayList.add(new ItemListItem("item", "All Items"));
     }
 
     public LibraryFragment() {

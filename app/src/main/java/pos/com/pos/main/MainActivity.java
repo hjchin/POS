@@ -7,7 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import pos.com.pos.R;
-import pos.com.pos.allItems.model.AllItemsItem;
+import pos.com.pos.allItems.model.SKUItem;
+import pos.com.pos.allItems.view.ItemListItem;
 import pos.com.pos.allItems.view.ItemListFragment;
 import pos.com.pos.data.Item;
 import pos.com.pos.databinding.ActivityMainBinding;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements
             showDiscountFragment();
         }
 
-        if(item instanceof AllItemsItem){
+        if(item instanceof ItemListItem){
             showItemListFragment();
         }
     }
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onItemClick(AllItemsItem item) {
+    public void onItemClick(SKUItem item) {
 
     }
 

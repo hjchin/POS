@@ -3,31 +3,35 @@ package pos.com.pos.allItems.view;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import pos.com.pos.R;
-import pos.com.pos.allItems.model.AllItemsItem;
+import pos.com.pos.allItems.Presenter.ItemListPresenter;
+import pos.com.pos.allItems.model.ItemListModel;
+import pos.com.pos.allItems.model.SKUItem;
+import pos.com.pos.data.HttpClient;
 import pos.com.pos.databinding.FragmentItemListBinding;
 
-public class ItemListFragment extends Fragment {
+public class ItemListFragment extends Fragment implements ItemListView{
 
-    public static ArrayList<AllItemsItem> allItemsItemArrayList;
-
-    static{
-        allItemsItemArrayList = new ArrayList<>();
-        allItemsItemArrayList.add(new AllItemsItem("item1","Item 1"));
-    }
+    private ItemListPresenter presenter;
 
     private Callback callback;
+    private ItemListAdapter adapter;
+    private FragmentItemListBinding binding;
+    private static CountingIdlingResource countingIdlingResource = new CountingIdlingResource("counter");
 
     public ItemListFragment() {
+        presenter = new ItemListPresenter(countingIdlingResource, new ItemListModel(HttpClient.getInstance()), this);
     }
 
     public static ItemListFragment newInstance() {
@@ -38,10 +42,12 @@ public class ItemListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FragmentItemListBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_item_list,container,false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_item_list,container,false);
         binding.frameName.setText(getString(R.string.all_items));
         binding.list.setLayoutManager(new LinearLayoutManager(container.getContext()));
-        binding.list.setAdapter(new AllItemsRecyclerViewAdapter(allItemsItemArrayList, callback));
+
+        adapter = new ItemListAdapter(new ArrayList<SKUItem>(), callback);
+        binding.list.setAdapter(adapter);
         return binding.getRoot();
     }
 
@@ -63,7 +69,17 @@ public class ItemListFragment extends Fragment {
         callback = null;
     }
 
+    @Override
+    public void showSKUItems(SKUItem[] items) {
+        adapter.setValues(Arrays.asList(items));
+    }
+
+    @Override
+    public void showError(Throwable throwable) {
+        Snackbar.make(binding.frameName,"Error loading Items",Snackbar.LENGTH_INDEFINITE).show();
+    }
+
     public interface Callback {
-        void onItemClick(AllItemsItem item);
+        void onItemClick(SKUItem item);
     }
 }

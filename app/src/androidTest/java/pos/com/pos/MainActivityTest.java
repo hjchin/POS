@@ -54,7 +54,8 @@ public class MainActivityTest {
         onView(withText(LibraryFragment.libraryItemArrayList.get(1).name)).check(matches(isDisplayed()));
         onView(withId(R.id.list)).perform(RecyclerViewActions.actionOnItemAtPosition(1,click()));
         onView(withText(activityTestRule.getActivity().getString(R.string.all_items))).check(matches(isDisplayed()));
-        onView(withText(ItemListFragment.allItemsItemArrayList.get(0).name)).check(matches(isDisplayed()));
+
+        onView(withText("accusamus beatae ad facilis cum similique qui sunt")).check(matches(isDisplayed()));
 
         activityTestRule.getActivity().backStack();
         onView(withText(activityTestRule.getActivity().getString(R.string.library))).check(matches(isDisplayed()));
