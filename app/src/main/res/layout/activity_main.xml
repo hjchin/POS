@@ -11,16 +11,15 @@
         android:baselineAligned="false">
 
         <FrameLayout
-            android:id="@+id/leftFrame"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="6"/>
+            android:layout_weight="6"
+            android:id="@+id/leftFrame"/>
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:orientation="vertical">
+            android:layout_weight="4">
 
             <FrameLayout
                 android:id="@+id/rightFrame"
@@ -45,7 +44,5 @@
                 app:layout_constraintStart_toStartOf="@+id/rightFrame" />
 
         </android.support.constraint.ConstraintLayout>
-
-
     </LinearLayout>
 </layout>

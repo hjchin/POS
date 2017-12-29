@@ -32,6 +32,7 @@ public class MainActivityTest {
 
     @Test
     public void testShowLibrary(){
+        onView(withText(activityTestRule.getActivity().getString(R.string.library))).check(matches(isDisplayed()));
         onView(withText(LibraryFragment.libraryItemArrayList.get(0).name)).check(matches(isDisplayed()));
         onView(withText(LibraryFragment.libraryItemArrayList.get(1).name)).check(matches(isDisplayed()));
     }
@@ -40,9 +41,11 @@ public class MainActivityTest {
     public void testShowDiscountFragment(){
         onView(withText(LibraryFragment.libraryItemArrayList.get(0).name)).check(matches(isDisplayed()));
         onView(withId(R.id.list)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
+        onView(withText(activityTestRule.getActivity().getString(R.string.all_discounts))).check(matches(isDisplayed()));
         onView(withText(DiscountListFragment.discountItemArrayList.get(0).name)).check(matches(isDisplayed()));
 
         activityTestRule.getActivity().backStack();
+        onView(withText(activityTestRule.getActivity().getString(R.string.library))).check(matches(isDisplayed()));
         onView(withText(LibraryFragment.libraryItemArrayList.get(0).name)).check(matches(isDisplayed()));
     }
 
@@ -50,9 +53,11 @@ public class MainActivityTest {
     public void testShowAllItemsFragment(){
         onView(withText(LibraryFragment.libraryItemArrayList.get(1).name)).check(matches(isDisplayed()));
         onView(withId(R.id.list)).perform(RecyclerViewActions.actionOnItemAtPosition(1,click()));
+        onView(withText(activityTestRule.getActivity().getString(R.string.all_items))).check(matches(isDisplayed()));
         onView(withText(ItemListFragment.allItemsItemArrayList.get(0).name)).check(matches(isDisplayed()));
 
         activityTestRule.getActivity().backStack();
+        onView(withText(activityTestRule.getActivity().getString(R.string.library))).check(matches(isDisplayed()));
         onView(withText(LibraryFragment.libraryItemArrayList.get(0).name)).check(matches(isDisplayed()));
     }
 }

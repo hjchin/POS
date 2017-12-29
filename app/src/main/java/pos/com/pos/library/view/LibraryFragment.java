@@ -1,6 +1,7 @@
 package pos.com.pos.library.view;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import pos.com.pos.R;
 import pos.com.pos.allItems.model.AllItemsItem;
 import pos.com.pos.data.Item;
+import pos.com.pos.databinding.FragmentItemListBinding;
 import pos.com.pos.discount.model.DiscountItem;
 
 /**
@@ -50,15 +52,11 @@ public class LibraryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
-
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new LibraryAdapter(libraryItemArrayList, callback));
-        }
-        return view;
+        FragmentItemListBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_item_list,container,false);
+        binding.frameName.setText(getString(R.string.library));
+        binding.list.setLayoutManager(new LinearLayoutManager(container.getContext()));
+        binding.list.setAdapter(new LibraryAdapter(libraryItemArrayList, callback));
+        return binding.getRoot();
     }
 
     @Override
