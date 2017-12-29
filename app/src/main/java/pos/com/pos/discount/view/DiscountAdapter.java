@@ -14,9 +14,9 @@ import java.util.List;
 public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.ViewHolder> {
 
     private final List<DiscountItem> values;
-    private final DiscountFragment.Callback callback;
+    private final DiscountListFragment.Callback callback;
 
-    DiscountAdapter(List<DiscountItem> items, DiscountFragment.Callback listener) {
+    DiscountAdapter(List<DiscountItem> items, DiscountListFragment.Callback listener) {
         values = items;
         callback = listener;
     }

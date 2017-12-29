@@ -15,7 +15,6 @@ import pos.com.pos.R;
 import pos.com.pos.allItems.model.AllItemsItem;
 import pos.com.pos.data.Item;
 import pos.com.pos.discount.model.DiscountItem;
-import pos.com.pos.library.model.LibraryItem;
 
 /**
  * A fragment representing a list of Items.
@@ -61,7 +60,6 @@ public class LibraryFragment extends Fragment {
         }
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {

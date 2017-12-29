@@ -15,9 +15,9 @@ import java.util.List;
 public class AllItemsRecyclerViewAdapter extends RecyclerView.Adapter<AllItemsRecyclerViewAdapter.ViewHolder> {
 
     private final List<AllItemsItem> values;
-    private final AllItemsFragment.Callback callback;
+    private final ItemListFragment.Callback callback;
 
-    public AllItemsRecyclerViewAdapter(List<AllItemsItem> items, AllItemsFragment.Callback listener) {
+    public AllItemsRecyclerViewAdapter(List<AllItemsItem> items, ItemListFragment.Callback listener) {
         values = items;
         callback = listener;
     }

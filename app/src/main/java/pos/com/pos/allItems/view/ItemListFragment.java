@@ -1,4 +1,4 @@
-package pos.com.pos.discount.view;
+package pos.com.pos.allItems.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,30 +12,25 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import pos.com.pos.R;
-import pos.com.pos.discount.model.DiscountItem;
+import pos.com.pos.allItems.model.AllItemsItem;
 
-public class DiscountFragment extends Fragment {
+public class ItemListFragment extends Fragment {
+
+    public static ArrayList<AllItemsItem> allItemsItemArrayList;
+
+    static{
+        allItemsItemArrayList = new ArrayList<>();
+        allItemsItemArrayList.add(new AllItemsItem("item1","Item 1"));
+    }
 
     private Callback callback;
 
-    public static ArrayList<DiscountItem> discountItemArrayList;
-
-    static{
-        discountItemArrayList = new ArrayList<>();
-        discountItemArrayList.add(new DiscountItem("discount1","Discount 1"));
+    public ItemListFragment() {
     }
 
-    public DiscountFragment() {
-    }
-
-    public static DiscountFragment newInstance() {
-        DiscountFragment fragment = new DiscountFragment();
+    public static ItemListFragment newInstance() {
+        ItemListFragment fragment = new ItemListFragment();
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -47,7 +42,7 @@ public class DiscountFragment extends Fragment {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new DiscountAdapter(discountItemArrayList, callback));
+            recyclerView.setAdapter(new AllItemsRecyclerViewAdapter(allItemsItemArrayList, callback));
         }
         return view;
     }
@@ -70,8 +65,7 @@ public class DiscountFragment extends Fragment {
         callback = null;
     }
 
-
     public interface Callback {
-        void onItemClick(DiscountItem item);
+        void onItemClick(AllItemsItem item);
     }
 }
