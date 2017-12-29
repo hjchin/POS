@@ -3,6 +3,7 @@ package pos.com.pos.allItems.view;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.v4.app.Fragment;
@@ -28,14 +29,21 @@ public class ItemListFragment extends Fragment implements ItemListView{
     private Callback callback;
     private ItemListAdapter adapter;
     private FragmentItemListBinding binding;
-    private static CountingIdlingResource countingIdlingResource = new CountingIdlingResource("counter");
+    private CountingIdlingResource countingIdlingResource;
 
-    public ItemListFragment() {
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         presenter = new ItemListPresenter(countingIdlingResource, new ItemListModel(HttpClient.getInstance()), this);
     }
 
-    public static ItemListFragment newInstance() {
+    public void setCountingIdlingResource(CountingIdlingResource countingIdlingResource){
+        this.countingIdlingResource = countingIdlingResource;
+    }
+
+    public static ItemListFragment newInstance(CountingIdlingResource countingIdlingResource) {
         ItemListFragment fragment = new ItemListFragment();
+        fragment.setCountingIdlingResource(countingIdlingResource);
         return fragment;
     }
 
@@ -81,5 +89,9 @@ public class ItemListFragment extends Fragment implements ItemListView{
 
     public interface Callback {
         void onItemClick(SKUItem item);
+    }
+
+    public CountingIdlingResource getIdlingCounter(){
+        return countingIdlingResource;
     }
 }

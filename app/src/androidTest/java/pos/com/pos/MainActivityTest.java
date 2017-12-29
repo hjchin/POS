@@ -1,5 +1,6 @@
 package pos.com.pos;
 
+import android.support.test.espresso.IdlingRegistry;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -28,7 +29,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 public class MainActivityTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class);
 
     @Test
     public void testShowLibrary(){
@@ -51,6 +52,9 @@ public class MainActivityTest {
 
     @Test
     public void testShowAllItemsFragment(){
+
+        IdlingRegistry.getInstance().register(activityTestRule.getActivity().getIdlingCounter());
+
         onView(withText(LibraryFragment.libraryItemArrayList.get(1).name)).check(matches(isDisplayed()));
         onView(withId(R.id.list)).perform(RecyclerViewActions.actionOnItemAtPosition(1,click()));
         onView(withText(activityTestRule.getActivity().getString(R.string.all_items))).check(matches(isDisplayed()));
@@ -60,5 +64,6 @@ public class MainActivityTest {
         activityTestRule.getActivity().backStack();
         onView(withText(activityTestRule.getActivity().getString(R.string.library))).check(matches(isDisplayed()));
         onView(withText(LibraryFragment.libraryItemArrayList.get(0).name)).check(matches(isDisplayed()));
+
     }
 }

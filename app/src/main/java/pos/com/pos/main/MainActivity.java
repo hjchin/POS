@@ -2,6 +2,7 @@ package pos.com.pos.main;
 
 import android.databinding.DataBindingUtil;
 import android.os.Handler;
+import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private ActivityMainBinding binding;
     private MainPresenter presenter;
+    private static CountingIdlingResource countingIdlingResource = new CountingIdlingResource("counter");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +37,14 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void showLibraryFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.leftFrame,LibraryFragment.newInstance());
+        transaction.replace(R.id.leftFrame,LibraryFragment.newInstance(),"library");
         transaction.commit();
     }
 
     @Override
     public void showDiscountFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.leftFrame, DiscountListFragment.newInstance());
+        transaction.replace(R.id.leftFrame, DiscountListFragment.newInstance(),"discount");
         transaction.addToBackStack("discount");
         transaction.commit();
     }
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void showItemListFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.leftFrame, ItemListFragment.newInstance());
+        transaction.replace(R.id.leftFrame, ItemListFragment.newInstance(countingIdlingResource),"itemList");
         transaction.addToBackStack("itemList");
         transaction.commit();
     }
@@ -84,4 +86,9 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
     }
+
+    public CountingIdlingResource getIdlingCounter(){
+        return countingIdlingResource;
+    }
+
 }
