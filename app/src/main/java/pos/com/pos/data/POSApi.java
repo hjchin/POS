@@ -1,7 +1,7 @@
 package pos.com.pos.data;
 
 import io.reactivex.Observable;
-import pos.com.pos.allItems.model.SKUItem;
+import pos.com.pos.item.model.Item;
 import retrofit2.http.GET;
 
 /**
@@ -11,6 +11,6 @@ import retrofit2.http.GET;
 public interface POSApi {
 
     @GET("photos")
-    Observable<SKUItem[]> getSKUItems();
+    Observable<Item[]> getItems();
 
 }

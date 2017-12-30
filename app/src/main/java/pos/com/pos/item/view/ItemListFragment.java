@@ -1,4 +1,4 @@
-package pos.com.pos.allItems.view;
+package pos.com.pos.item.view;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -16,11 +16,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import pos.com.pos.R;
-import pos.com.pos.allItems.Presenter.ItemListPresenter;
-import pos.com.pos.allItems.model.ItemListModel;
-import pos.com.pos.allItems.model.SKUItem;
+import pos.com.pos.data.AppDatabase;
+import pos.com.pos.item.Presenter.ItemListPresenter;
+import pos.com.pos.item.model.ItemRepo;
+import pos.com.pos.item.model.Item;
 import pos.com.pos.data.HttpClient;
 import pos.com.pos.databinding.FragmentItemListBinding;
+import pos.com.pos.util.AppExecutors;
 
 public class ItemListFragment extends Fragment implements ItemListView{
 
@@ -34,7 +36,13 @@ public class ItemListFragment extends Fragment implements ItemListView{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new ItemListPresenter(countingIdlingResource, new ItemListModel(HttpClient.getInstance()), this);
+
+        presenter = new ItemListPresenter(
+                countingIdlingResource,
+                new ItemRepo(AppDatabase.getInstance(getActivity()).itemDao(),
+                        HttpClient.getInstance(),
+                        AppExecutors.getInstance()),
+                this);
     }
 
     public void setCountingIdlingResource(CountingIdlingResource countingIdlingResource){
@@ -54,7 +62,7 @@ public class ItemListFragment extends Fragment implements ItemListView{
         binding.frameName.setText(getString(R.string.all_items));
         binding.list.setLayoutManager(new LinearLayoutManager(container.getContext()));
 
-        adapter = new ItemListAdapter(new ArrayList<SKUItem>(), callback);
+        adapter = new ItemListAdapter(new ArrayList<Item>(), callback);
         binding.list.setAdapter(adapter);
         return binding.getRoot();
     }
@@ -78,7 +86,7 @@ public class ItemListFragment extends Fragment implements ItemListView{
     }
 
     @Override
-    public void showSKUItems(SKUItem[] items) {
+    public void showItems(Item[] items) {
         adapter.setValues(Arrays.asList(items));
     }
 
@@ -87,11 +95,13 @@ public class ItemListFragment extends Fragment implements ItemListView{
         Snackbar.make(binding.frameName,"Error loading Items",Snackbar.LENGTH_INDEFINITE).show();
     }
 
-    public interface Callback {
-        void onItemClick(SKUItem item);
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.destroy();
     }
 
-    public CountingIdlingResource getIdlingCounter(){
-        return countingIdlingResource;
+    public interface Callback {
+        void onItemClick(Item item);
     }
 }

@@ -1,10 +1,10 @@
-package pos.com.pos.allItems.Presenter;
+package pos.com.pos.item.Presenter;
 
 import android.support.test.espresso.idling.CountingIdlingResource;
 
-import pos.com.pos.allItems.model.ItemListModel;
-import pos.com.pos.allItems.model.SKUItem;
-import pos.com.pos.allItems.view.ItemListView;
+import pos.com.pos.item.model.ItemRepo;
+import pos.com.pos.item.model.Item;
+import pos.com.pos.item.view.ItemListView;
 
 /**
  * Created by HJ Chin on 29/12/2017.
@@ -12,23 +12,24 @@ import pos.com.pos.allItems.view.ItemListView;
 
 public class ItemListPresenter {
 
-    private final ItemListModel model;
+    private final ItemRepo repo;
     private final ItemListView view;
     private final CountingIdlingResource countingIdlingResource;
 
-    public ItemListPresenter(CountingIdlingResource countingIdlingResource, ItemListModel model, ItemListView view){
+    public ItemListPresenter(CountingIdlingResource countingIdlingResource, ItemRepo repo, ItemListView view){
         this.countingIdlingResource = countingIdlingResource;
-        this.model = model;
+        this.repo = repo;
         this.view = view;
         loadItems();
     }
 
     public void loadItems(){
         countingIdlingResource.increment();
-        model.getItems(new ItemListModel.GetItemListCallback() {
+
+        repo.getItems(new ItemRepo.GetItemListCallback() {
             @Override
-            public void onResponse(SKUItem[] sku) {
-                view.showSKUItems(sku);
+            public void onResponse(Item[] sku) {
+                view.showItems(sku);
                 countingIdlingResource.decrement();
             }
 
@@ -38,5 +39,9 @@ public class ItemListPresenter {
                 countingIdlingResource.decrement();
             }
         });
+    }
+
+    public void destroy() {
+        repo.disposeSubscription();
     }
 }

@@ -1,4 +1,4 @@
-package pos.com.pos.allItems.view;
+package pos.com.pos.item.view;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
@@ -9,17 +9,17 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 
 import pos.com.pos.R;
-import pos.com.pos.allItems.model.SKUItem;
+import pos.com.pos.item.model.Item;
 import pos.com.pos.databinding.FragmentSkuItemBinding;
 
 import java.util.List;
 
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHolder> {
 
-    private  List<SKUItem> values;
+    private  List<Item> values;
     private final ItemListFragment.Callback callback;
 
-    public ItemListAdapter(List<SKUItem> items,
+    public ItemListAdapter(List<Item> items,
                            ItemListFragment.Callback listener) {
         values = items;
         callback = listener;
@@ -31,7 +31,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
         return new ViewHolder(binding);
     }
 
-    public void setValues(List<SKUItem> items){
+    public void setValues(List<Item> items){
         values = items;
         notifyDataSetChanged();
     }
@@ -65,7 +65,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public SKUItem item;
+        public Item item;
         FragmentSkuItemBinding binding;
 
         ViewHolder(FragmentSkuItemBinding binding ) {

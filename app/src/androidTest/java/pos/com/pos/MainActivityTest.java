@@ -9,7 +9,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import pos.com.pos.allItems.view.ItemListFragment;
 import pos.com.pos.discount.view.DiscountListFragment;
 import pos.com.pos.library.view.LibraryFragment;
 import pos.com.pos.main.MainActivity;
@@ -64,6 +63,5 @@ public class MainActivityTest {
         activityTestRule.getActivity().backStack();
         onView(withText(activityTestRule.getActivity().getString(R.string.library))).check(matches(isDisplayed()));
         onView(withText(LibraryFragment.libraryItemArrayList.get(0).name)).check(matches(isDisplayed()));
-
     }
 }

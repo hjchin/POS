@@ -1,6 +1,6 @@
-package pos.com.pos.allItems.view;
+package pos.com.pos.item.view;
 
-import pos.com.pos.allItems.model.SKUItem;
+import pos.com.pos.item.model.Item;
 
 /**
  * Created by HJ Chin on 29/12/2017.
@@ -8,6 +8,6 @@ import pos.com.pos.allItems.model.SKUItem;
 
 public interface ItemListView {
 
-    void showSKUItems(SKUItem[] items);
+    void showItems(Item[] items);
     void showError(Throwable throwable);
 }

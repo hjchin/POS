@@ -1,4 +1,4 @@
-package pos.com.pos.allItems.view;
+package pos.com.pos.item.view;
 
 import pos.com.pos.data.Item;
 

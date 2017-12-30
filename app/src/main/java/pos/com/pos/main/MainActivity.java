@@ -8,10 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import pos.com.pos.R;
-import pos.com.pos.allItems.model.SKUItem;
-import pos.com.pos.allItems.view.ItemListItem;
-import pos.com.pos.allItems.view.ItemListFragment;
-import pos.com.pos.data.Item;
+import pos.com.pos.item.model.Item;
+import pos.com.pos.item.view.ItemListItem;
+import pos.com.pos.item.view.ItemListFragment;
 import pos.com.pos.databinding.ActivityMainBinding;
 import pos.com.pos.discount.model.DiscountItem;
 import pos.com.pos.discount.view.DiscountListFragment;
@@ -25,11 +24,12 @@ public class MainActivity extends AppCompatActivity implements
 
     private ActivityMainBinding binding;
     private MainPresenter presenter;
-    private static CountingIdlingResource countingIdlingResource = new CountingIdlingResource("counter");
+    private static CountingIdlingResource countingIdlingResource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        countingIdlingResource = new CountingIdlingResource("counter");
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         presenter = new MainPresenter(this);
     }
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onItemClick(Item item) {
+    public void onItemClick(pos.com.pos.data.Item item) {
         if(item instanceof DiscountItem){
             showDiscountFragment();
         }
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onItemClick(SKUItem item) {
+    public void onItemClick(Item item) {
 
     }
 
