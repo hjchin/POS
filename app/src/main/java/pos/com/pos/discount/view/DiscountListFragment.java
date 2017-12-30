@@ -5,7 +5,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +13,22 @@ import java.util.ArrayList;
 
 import pos.com.pos.R;
 import pos.com.pos.databinding.FragmentItemListBinding;
-import pos.com.pos.discount.model.DiscountItem;
+import pos.com.pos.discount.model.Item;
+import pos.com.pos.library.view.DiscountItem;
 
 public class DiscountListFragment extends Fragment {
 
     private Callback callback;
 
-    public static ArrayList<DiscountItem> discountItemArrayList;
+    public static ArrayList<Item> discountItemArrayList;
 
     static{
         discountItemArrayList = new ArrayList<>();
-        discountItemArrayList.add(new DiscountItem("discount1","Discount 1"));
+        discountItemArrayList.add(new Item("discount1","Discount A",0));
+        discountItemArrayList.add(new Item("discount2","Discount B",10));
+        discountItemArrayList.add(new Item("discount3","Discount C",35.5));
+        discountItemArrayList.add(new Item("discount4","Discount D",50));
+        discountItemArrayList.add(new Item("discount5","Discount E",100));
     }
 
     public DiscountListFragment() {

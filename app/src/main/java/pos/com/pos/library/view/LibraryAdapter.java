@@ -7,8 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import pos.com.pos.R;
-import pos.com.pos.data.Item;
-import pos.com.pos.databinding.FragmentItemBinding;
+import pos.com.pos.databinding.FragmentLibraryItemBinding;
 
 import java.util.List;
 
@@ -25,15 +24,13 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        FragmentItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.fragment_item, parent, false);
+        FragmentLibraryItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.fragment_library_item, parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-
         holder.item = values.get(position);
-        holder.binding.id.setText(values.get(position).id);
         holder.binding.name.setText(values.get(position).name);
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,10 +47,10 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.ViewHold
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        FragmentItemBinding binding;
+        FragmentLibraryItemBinding binding;
         Item item;
 
-         ViewHolder(FragmentItemBinding binding){
+         ViewHolder(FragmentLibraryItemBinding binding){
             super(binding.getRoot());
             this.binding = binding;
         }

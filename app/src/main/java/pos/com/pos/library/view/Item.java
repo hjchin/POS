@@ -1,4 +1,4 @@
-package pos.com.pos.data;
+package pos.com.pos.library.view;
 
 /**
  * Created by HJ Chin on 28/12/2017.

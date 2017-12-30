@@ -9,10 +9,10 @@ import android.os.Bundle;
 
 import pos.com.pos.R;
 import pos.com.pos.item.model.Item;
-import pos.com.pos.item.view.ItemListItem;
+import pos.com.pos.library.view.ItemListItem;
 import pos.com.pos.item.view.ItemListFragment;
 import pos.com.pos.databinding.ActivityMainBinding;
-import pos.com.pos.discount.model.DiscountItem;
+import pos.com.pos.library.view.DiscountItem;
 import pos.com.pos.discount.view.DiscountListFragment;
 import pos.com.pos.library.view.LibraryFragment;
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onItemClick(pos.com.pos.data.Item item) {
+    public void onItemClick(pos.com.pos.library.view.Item item) {
         if(item instanceof DiscountItem){
             showDiscountFragment();
         }

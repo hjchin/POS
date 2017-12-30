@@ -12,10 +12,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import pos.com.pos.R;
-import pos.com.pos.item.view.ItemListItem;
-import pos.com.pos.data.Item;
 import pos.com.pos.databinding.FragmentItemListBinding;
-import pos.com.pos.discount.model.DiscountItem;
 
 /**
  * A fragment representing a list of Items.

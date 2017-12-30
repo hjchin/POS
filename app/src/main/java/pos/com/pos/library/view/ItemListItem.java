@@ -1,6 +1,4 @@
-package pos.com.pos.item.view;
-
-import pos.com.pos.data.Item;
+package pos.com.pos.library.view;
 
 /**
  * Created by HJ Chin on 28/12/2017.

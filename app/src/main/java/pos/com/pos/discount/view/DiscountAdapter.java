@@ -6,32 +6,32 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import pos.com.pos.R;
-import pos.com.pos.databinding.FragmentItemBinding;
-import pos.com.pos.discount.model.DiscountItem;
+import pos.com.pos.databinding.FragmentDiscountItemBinding;
+import pos.com.pos.discount.model.Item;
 
 import java.util.List;
 
 public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.ViewHolder> {
 
-    private final List<DiscountItem> values;
+    private final List<Item> values;
     private final DiscountListFragment.Callback callback;
 
-    DiscountAdapter(List<DiscountItem> items, DiscountListFragment.Callback listener) {
+    DiscountAdapter(List<Item> items, DiscountListFragment.Callback listener) {
         values = items;
         callback = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        FragmentItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.fragment_item,parent, false);
+        FragmentDiscountItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.fragment_discount_item,parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.item = values.get(position);
-        holder.binding.id.setText(values.get(position).id);
         holder.binding.name.setText(values.get(position).name);
+        holder.binding.description.setText(String.valueOf(values.get(position).discount)+" %");
     }
 
     @Override
@@ -41,10 +41,10 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.ViewHo
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        FragmentItemBinding binding;
-        DiscountItem item;
+        FragmentDiscountItemBinding binding;
+        Item item;
 
-        ViewHolder(FragmentItemBinding binding){
+        ViewHolder(FragmentDiscountItemBinding binding){
             super(binding.getRoot());
             this.binding = binding;
         }
