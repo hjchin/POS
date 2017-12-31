@@ -19,11 +19,11 @@ public class ShoppingCartTest {
 
     @Before
     public void setup(){
-        ShoppingCart.getInstance().clear();
+        ShoppingCart.getInstance().emptyCart();
     }
 
     @Test
-    public void testEmptyCart(){
+    public void testDefaultEmptyCart(){
         ShoppingCart shoppingCart = ShoppingCart.getInstance();
         assertEquals("0.00",shoppingCart.getSubTotalString());
         assertEquals("0.00",shoppingCart.getDiscountString());
@@ -197,5 +197,38 @@ public class ShoppingCartTest {
         }catch (IllegalArgumentException ex){
             assertTrue("invalid item to remove",true);
         }
+    }
+
+    @Test
+    public void testEmptyCart(){
+        ShoppingCart shoppingCart = ShoppingCart.getInstance();
+
+        Item skuItem = new Item(1,
+                "product A",
+                "url",
+                "thumbUrl",
+                100);
+
+        ShoppingCartItem item = new ShoppingCartItem(skuItem,
+                DiscountListFragment.discount0,
+                1);
+        shoppingCart.addItem(item);
+
+        ShoppingCartItem item2 = new ShoppingCartItem(skuItem,
+                DiscountListFragment.discount10,
+                10);
+        shoppingCart.addItem(item2);
+
+        assertEquals("1100.00",shoppingCart.getSubTotalString());
+        assertEquals("100.00",shoppingCart.getDiscountString());
+        assertEquals("1000.00",shoppingCart.getChargeString());
+        assertEquals(2,shoppingCart.getItemCount());
+
+        shoppingCart.emptyCart();
+
+        assertEquals("0.00",shoppingCart.getSubTotalString());
+        assertEquals("0.00",shoppingCart.getDiscountString());
+        assertEquals("0.00",shoppingCart.getChargeString());
+        assertEquals(0,shoppingCart.getItemCount());
     }
 }

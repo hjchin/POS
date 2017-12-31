@@ -70,7 +70,7 @@ public class ShoppingCart {
         return shoppingList.size();
     }
 
-    public void clear(){
+    public void emptyCart(){
         shoppingList.clear();
         calTotal();
     }
