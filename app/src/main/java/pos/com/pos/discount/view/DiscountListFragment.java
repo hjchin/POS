@@ -21,13 +21,19 @@ public class DiscountListFragment extends Fragment {
 
     public static ArrayList<DiscountItem> discountItemArrayList;
 
+    public static final DiscountItem discount0 = new DiscountItem("discountA","Discount A",0);
+    public static final DiscountItem discount10 = new DiscountItem("discountB","Discount B",10);
+    public static final DiscountItem discount355 = new DiscountItem("discount3","Discount C",35.5);
+    public static final DiscountItem discount50 = new DiscountItem("discount4","Discount D",50);
+    public static final DiscountItem discount100 = new DiscountItem("discount5","Discount E",100);
+
     static{
         discountItemArrayList = new ArrayList<>();
-        discountItemArrayList.add(new DiscountItem("discount1","Discount A",0));
-        discountItemArrayList.add(new DiscountItem("discount2","Discount B",10));
-        discountItemArrayList.add(new DiscountItem("discount3","Discount C",35.5));
-        discountItemArrayList.add(new DiscountItem("discount4","Discount D",50));
-        discountItemArrayList.add(new DiscountItem("discount5","Discount E",100));
+        discountItemArrayList.add(discount0);
+        discountItemArrayList.add(discount10);
+        discountItemArrayList.add(discount355);
+        discountItemArrayList.add(discount50);
+        discountItemArrayList.add(discount100);
     }
 
     public DiscountListFragment() {

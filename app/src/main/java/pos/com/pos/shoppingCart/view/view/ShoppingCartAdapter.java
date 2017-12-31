@@ -31,8 +31,8 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.item = values.get(position);
-        holder.binding.name.setText(values.get(position).getName());
-        holder.binding.quantity.setText(values.get(position).getQuantity());
+        holder.binding.name.setText(values.get(position).getItemName());
+        holder.binding.quantity.setText(values.get(position).getQuantityString());
 
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override

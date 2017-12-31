@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        tools:context="pos.com.pos.main.MainActivity"
+        tools:context="pos.com.pos.main.view.MainActivity"
         android:baselineAligned="false">
 
         <FrameLayout

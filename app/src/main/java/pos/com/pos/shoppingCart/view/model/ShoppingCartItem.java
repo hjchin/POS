@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 
 import pos.com.pos.discount.model.DiscountItem;
 import pos.com.pos.item.model.Item;
+import pos.com.pos.util.Util;
 
 /**
  * Created by HJ Chin on 31/12/2017.
@@ -13,9 +14,10 @@ public class ShoppingCartItem {
 
     private Item item;
     private DiscountItem discountItem;
-    private double discountTotal;
+    private double totalDiscount;
     private int quantity;
-    private Double subTotal;
+    private Double totalAfterDiscount;
+    private Double totalBeforeDiscount;
 
     public ShoppingCartItem(Item skuItem, DiscountItem discountItem, int quantity){
         this.item = skuItem;
@@ -28,47 +30,73 @@ public class ShoppingCartItem {
         //discount is in form of XX%
 
         if(Double.compare(discountItem.discount,0.0) == 0){
-            subTotal = Math.round(item.price * quantity*100)/100.0;
-            discountTotal = 0.0;
+            totalBeforeDiscount = Math.round(item.price * quantity*100)/100.0;
+            totalAfterDiscount = totalBeforeDiscount;
+            totalDiscount = 0.0;
         }else if(Double.compare(discountItem.discount,100.0) == 0){
-            subTotal = 0.0;
-            discountTotal = Math.round(item.price * discountItem.discount * quantity)/100.0;
+            totalAfterDiscount = 0.0;
+            totalDiscount = Math.round(item.price * discountItem.discount * quantity)/100.0;
+            totalBeforeDiscount = totalDiscount;
         }else{
-            double total = Math.round(item.price * quantity * 100.0)/100.0;
-            subTotal = Math.round(item.price * (100-discountItem.discount) * quantity)/100.0;
-            discountTotal = total - subTotal;
+            totalBeforeDiscount = Math.round(item.price * quantity * 100.0)/100.0;
+            totalAfterDiscount = Math.round(item.price * (100-discountItem.discount) * quantity)/100.0;
+            totalDiscount = totalBeforeDiscount - totalAfterDiscount;
         }
     }
 
-    public double discountTotal(){
-        return discountTotal;
+    public double totalDiscount(){
+        return totalDiscount;
     }
 
-    public double total(){
-         if(subTotal == null){
+    public double totalAfterDiscount(){
+         if(totalAfterDiscount == null){
              calTotal();
          }
 
-         return subTotal;
+         return totalAfterDiscount;
     }
 
-    public String totalString(){
-        DecimalFormat format = new DecimalFormat("#0.00");
-        return format.format(total());
+
+    public double totalBeforeDiscount(){
+        return totalBeforeDiscount;
     }
 
-    public String discountTotalString(){
-        DecimalFormat format = new DecimalFormat("#0.00");
-        return format.format(discountTotal());
+    public String totalAfterDiscountString(){
+        return format(totalAfterDiscount);
     }
 
-    public String getName(){
+    public String totalDiscountString(){
+        return format(totalDiscount);
+    }
+
+    public String totalBeforeDiscountString(){
+        return format(totalBeforeDiscount);
+    }
+
+    private String format(double value){
+        return Util.formatDisplay(value);
+    }
+
+    public String getItemName(){
         return item.title;
     }
 
-    public String getQuantity(){
+    public String getQuantityString(){
         return String.valueOf(quantity);
     }
+
+    public int getQuantity(){
+        return quantity;
+    }
+
+    public DiscountItem getDiscount(){
+        return discountItem;
+    }
+
+    public Item getItem(){
+        return item;
+    }
+
 
 
 }

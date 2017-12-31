@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 
 import pos.com.pos.discount.view.DiscountListFragment;
 import pos.com.pos.library.view.LibraryFragment;
-import pos.com.pos.main.MainActivity;
+import pos.com.pos.main.view.MainActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;

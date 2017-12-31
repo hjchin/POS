@@ -1,4 +1,4 @@
-package pos.com.pos.main;
+package pos.com.pos.main.view;
 
 import android.databinding.DataBindingUtil;
 import android.os.Handler;
@@ -15,6 +15,7 @@ import pos.com.pos.databinding.ActivityMainBinding;
 import pos.com.pos.library.view.DiscountItem;
 import pos.com.pos.discount.view.DiscountListFragment;
 import pos.com.pos.library.view.LibraryFragment;
+import pos.com.pos.main.Presenter.MainPresenter;
 import pos.com.pos.shoppingCart.view.model.ShoppingCartItem;
 import pos.com.pos.shoppingCart.view.view.ShoppingCartFragment;
 
@@ -68,6 +69,11 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void refreshShoppingCart() {
+
+    }
+
+    @Override
     public void onItemClick(pos.com.pos.library.view.Item item) {
         if(item instanceof DiscountItem){
             showDiscountFragment();
@@ -85,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onItemClick(Item item) {
-
+        presenter.addItemToShoppingCart(item);
     }
 
     public void backStack(){

@@ -17,4 +17,15 @@ public class Item {
     public String url;
     public String thumbnailUrl;
     public int price;
+
+    public Item(){
+    }
+
+    public Item(int id, String title, String url, String thumbnailUrl, int price){
+        this.id = id;
+        this.title = title;
+        this.url = url;
+        this.thumbnailUrl = thumbnailUrl;
+        this.price = price;
+    }
 }

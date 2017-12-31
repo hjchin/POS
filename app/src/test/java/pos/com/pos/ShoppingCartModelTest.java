@@ -33,16 +33,17 @@ public class ShoppingCartModelTest {
                 discountItem0,
                 1);
 
-        assertEquals("100.00",cartItem1.totalString());
-        assertEquals("0.00",cartItem1.discountTotalString());
+        assertEquals("100.00",cartItem1.totalAfterDiscountString());
+        assertEquals("0.00",cartItem1.totalDiscountString());
 
         ShoppingCartItem cartItem2 = new ShoppingCartItem(
                 skuItem,
                 discountItem0,
                 100);
 
-        assertEquals("10000.00",cartItem2.totalString());
-        assertEquals("0.00",cartItem2.discountTotalString());
+        assertEquals("10000.00",cartItem2.totalBeforeDiscountString());
+        assertEquals("10000.00",cartItem2.totalAfterDiscountString());
+        assertEquals("0.00",cartItem2.totalDiscountString());
     }
 
     @Test
@@ -54,16 +55,18 @@ public class ShoppingCartModelTest {
                 discountItem10,
                 1);
 
-        assertEquals("90.00",cartItem3.totalString());
-        assertEquals("10.00",cartItem3.discountTotalString());
+        assertEquals("100.00",cartItem3.totalBeforeDiscountString());
+        assertEquals("90.00",cartItem3.totalAfterDiscountString());
+        assertEquals("10.00",cartItem3.totalDiscountString());
 
         ShoppingCartItem cartItem4 = new ShoppingCartItem(
                 skuItem,
                 discountItem10,
                 20);
 
-        assertEquals("1800.00",cartItem4.totalString());
-        assertEquals("200.00",cartItem4.discountTotalString());
+        assertEquals("2000.00",cartItem4.totalBeforeDiscountString());
+        assertEquals("1800.00",cartItem4.totalAfterDiscountString());
+        assertEquals("200.00",cartItem4.totalDiscountString());
     }
 
     @Test
@@ -75,16 +78,18 @@ public class ShoppingCartModelTest {
                 discountItem355,
                 1);
 
-        assertEquals("64.50",cartItem1.totalString());
-        assertEquals("35.50",cartItem1.discountTotalString());
+        assertEquals("100.00",cartItem1.totalBeforeDiscountString());
+        assertEquals("64.50",cartItem1.totalAfterDiscountString());
+        assertEquals("35.50",cartItem1.totalDiscountString());
 
         ShoppingCartItem cartItem2 = new ShoppingCartItem(
                 skuItem,
                 discountItem355,
                 12);
 
-        assertEquals("774.00",cartItem2.totalString());
-        assertEquals("426.00",cartItem2.discountTotalString());
+        assertEquals("1200.00",cartItem2.totalBeforeDiscountString());
+        assertEquals("774.00",cartItem2.totalAfterDiscountString());
+        assertEquals("426.00",cartItem2.totalDiscountString());
     }
 
     @Test
@@ -96,15 +101,17 @@ public class ShoppingCartModelTest {
                 discountItem100,
                 1);
 
-        assertEquals("0.00",cartItem1.totalString());
-        assertEquals("100.00",cartItem1.discountTotalString());
+        assertEquals("100.00",cartItem1.totalBeforeDiscountString());
+        assertEquals("0.00",cartItem1.totalAfterDiscountString());
+        assertEquals("100.00",cartItem1.totalDiscountString());
 
         ShoppingCartItem cartItem2 = new ShoppingCartItem(
                 skuItem,
                 discountItem100,
                 12);
 
-        assertEquals("0.00",cartItem1.totalString());
-        assertEquals("100.00",cartItem1.discountTotalString());
+        assertEquals("100.00",cartItem1.totalBeforeDiscountString());
+        assertEquals("0.00",cartItem1.totalAfterDiscountString());
+        assertEquals("100.00",cartItem1.totalDiscountString());
     }
 }
