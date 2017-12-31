@@ -17,11 +17,11 @@ import java.util.Arrays;
 
 import pos.com.pos.R;
 import pos.com.pos.data.AppDatabase;
+import pos.com.pos.databinding.FragmentLeftFrameBinding;
 import pos.com.pos.item.Presenter.ItemListPresenter;
 import pos.com.pos.item.model.ItemRepo;
 import pos.com.pos.item.model.Item;
 import pos.com.pos.data.HttpClient;
-import pos.com.pos.databinding.FragmentItemListBinding;
 import pos.com.pos.util.AppExecutors;
 
 public class ItemListFragment extends Fragment implements ItemListView{
@@ -30,7 +30,7 @@ public class ItemListFragment extends Fragment implements ItemListView{
 
     private Callback callback;
     private ItemListAdapter adapter;
-    private FragmentItemListBinding binding;
+    private FragmentLeftFrameBinding binding;
     private CountingIdlingResource countingIdlingResource;
 
     @Override
@@ -58,7 +58,7 @@ public class ItemListFragment extends Fragment implements ItemListView{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_item_list,container,false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_left_frame,container,false);
         binding.frameName.setText(getString(R.string.all_items));
         binding.list.setLayoutManager(new LinearLayoutManager(container.getContext()));
 

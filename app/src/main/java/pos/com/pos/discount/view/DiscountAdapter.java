@@ -7,16 +7,16 @@ import android.view.ViewGroup;
 
 import pos.com.pos.R;
 import pos.com.pos.databinding.FragmentDiscountItemBinding;
-import pos.com.pos.discount.model.Item;
+import pos.com.pos.discount.model.DiscountItem;
 
 import java.util.List;
 
 public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.ViewHolder> {
 
-    private final List<Item> values;
+    private final List<DiscountItem> values;
     private final DiscountListFragment.Callback callback;
 
-    DiscountAdapter(List<Item> items, DiscountListFragment.Callback listener) {
+    DiscountAdapter(List<DiscountItem> items, DiscountListFragment.Callback listener) {
         values = items;
         callback = listener;
     }
@@ -42,7 +42,7 @@ public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder {
 
         FragmentDiscountItemBinding binding;
-        Item item;
+        DiscountItem item;
 
         ViewHolder(FragmentDiscountItemBinding binding){
             super(binding.getRoot());

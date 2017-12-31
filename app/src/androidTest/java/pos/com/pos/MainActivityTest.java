@@ -31,14 +31,16 @@ public class MainActivityTest {
     public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class);
 
     @Test
-    public void testShowLibrary(){
+    public void testShowDefaultFragments(){
         onView(withText(activityTestRule.getActivity().getString(R.string.library))).check(matches(isDisplayed()));
         onView(withText(LibraryFragment.libraryItemArrayList.get(0).name)).check(matches(isDisplayed()));
         onView(withText(LibraryFragment.libraryItemArrayList.get(1).name)).check(matches(isDisplayed()));
+
+        onView(withText(activityTestRule.getActivity().getString(R.string.shopping_cart))).check(matches(isDisplayed()));
     }
 
     @Test
-    public void testShowDiscountFragment(){
+    public void testShowDiscountListFragment(){
         onView(withText(LibraryFragment.libraryItemArrayList.get(0).name)).check(matches(isDisplayed()));
         onView(withId(R.id.list)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
         onView(withText(activityTestRule.getActivity().getString(R.string.all_discounts))).check(matches(isDisplayed()));
@@ -50,7 +52,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testShowAllItemsFragment(){
+    public void testShowItemListFragment(){
 
         IdlingRegistry.getInstance().register(activityTestRule.getActivity().getIdlingCounter());
 

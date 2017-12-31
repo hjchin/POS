@@ -1,4 +1,4 @@
-package pos.com.pos.library.view;
+package pos.com.pos.shoppingCart.view.view;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -12,7 +12,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import pos.com.pos.R;
-import pos.com.pos.databinding.FragmentLeftFrameBinding;
+import pos.com.pos.databinding.FragmentShoppingCartBinding;
+import pos.com.pos.shoppingCart.view.model.ShoppingCartItem;
 
 /**
  * A fragment representing a list of Items.
@@ -20,40 +21,35 @@ import pos.com.pos.databinding.FragmentLeftFrameBinding;
  * Activities containing this fragment MUST implement the {@link Callback}
  * interface.
  */
-public class LibraryFragment extends Fragment {
+public class ShoppingCartFragment extends Fragment {
 
     private Callback callback;
 
-    public static ArrayList<Item> libraryItemArrayList;
-
-    static{
-        libraryItemArrayList = new ArrayList<>();
-        libraryItemArrayList.add(new DiscountItem("discount", "All Discounts"));
-        libraryItemArrayList.add(new ItemListItem("item", "All Items"));
+    public ShoppingCartFragment() {
     }
 
-    public LibraryFragment() {
-    }
-
-    public static LibraryFragment newInstance() {
-        LibraryFragment fragment = new LibraryFragment();
+    public static ShoppingCartFragment newInstance() {
+        ShoppingCartFragment fragment = new ShoppingCartFragment();
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FragmentLeftFrameBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_left_frame,container,false);
-        binding.frameName.setText(getString(R.string.library));
-        binding.list.setLayoutManager(new LinearLayoutManager(container.getContext()));
-        binding.list.setAdapter(new LibraryAdapter(libraryItemArrayList, callback));
+        FragmentShoppingCartBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_shopping_cart,container,false);
+
+        binding.frameName.setText(getActivity().getString(R.string.shopping_cart));
+        binding.shoppingCartList.setLayoutManager(new LinearLayoutManager(container.getContext()));
+        binding.shoppingCartList.setAdapter(new ShoppingCartAdapter(new ArrayList<ShoppingCartItem>(), callback));
+        binding.clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //do nothing
+            }
+        });
         return binding.getRoot();
     }
+
 
     @Override
     public void onAttach(Context context) {
@@ -73,6 +69,6 @@ public class LibraryFragment extends Fragment {
     }
 
     public interface Callback {
-        void onItemClick(Item item);
+        void onItemClick(ShoppingCartItem item);
     }
 }

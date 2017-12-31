@@ -11,6 +11,7 @@ public class MainPresenter {
     MainPresenter(MainView view){
         this.view = view;
         loadLibraryFragment();
+        loadShoppingCartFragment();
     }
 
     void loadLibraryFragment(){
@@ -23,6 +24,10 @@ public class MainPresenter {
 
     void loadItemListFragement(){
 
+    }
+
+    void loadShoppingCartFragment(){
+        view.showShoppingCartFragment();
     }
 
 

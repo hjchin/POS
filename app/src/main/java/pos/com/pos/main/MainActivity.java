@@ -15,12 +15,15 @@ import pos.com.pos.databinding.ActivityMainBinding;
 import pos.com.pos.library.view.DiscountItem;
 import pos.com.pos.discount.view.DiscountListFragment;
 import pos.com.pos.library.view.LibraryFragment;
+import pos.com.pos.shoppingCart.view.model.ShoppingCartItem;
+import pos.com.pos.shoppingCart.view.view.ShoppingCartFragment;
 
 public class MainActivity extends AppCompatActivity implements
         MainView,
         LibraryFragment.Callback,
         DiscountListFragment.Callback,
-        ItemListFragment.Callback{
+        ItemListFragment.Callback,
+        ShoppingCartFragment.Callback{
 
     private ActivityMainBinding binding;
     private MainPresenter presenter;
@@ -58,6 +61,13 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void showShoppingCartFragment() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.rightFrame, ShoppingCartFragment.newInstance(),"shoppingCart");
+        transaction.commit();
+    }
+
+    @Override
     public void onItemClick(pos.com.pos.library.view.Item item) {
         if(item instanceof DiscountItem){
             showDiscountFragment();
@@ -91,4 +101,8 @@ public class MainActivity extends AppCompatActivity implements
         return countingIdlingResource;
     }
 
+    @Override
+    public void onItemClick(ShoppingCartItem item) {
+
+    }
 }

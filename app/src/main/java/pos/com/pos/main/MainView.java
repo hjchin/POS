@@ -9,4 +9,5 @@ public interface MainView {
     void showLibraryFragment();
     void showDiscountFragment();
     void showItemListFragment();
+    void showShoppingCartFragment();
 }
