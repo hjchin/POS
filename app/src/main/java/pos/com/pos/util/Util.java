@@ -12,4 +12,8 @@ public class Util {
         DecimalFormat f = new DecimalFormat("#0.00");
         return f.format(value);
     }
+
+    public static String formatMoney(double value){
+        return "$"+formatDisplay(value);
+    }
 }
