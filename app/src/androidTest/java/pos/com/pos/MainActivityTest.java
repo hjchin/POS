@@ -9,7 +9,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import pos.com.pos.discount.view.DiscountListFragment;
+import pos.com.pos.discount.model.DiscountItem;
 import pos.com.pos.library.view.LibraryFragment;
 import pos.com.pos.main.view.MainActivity;
 
@@ -44,7 +44,7 @@ public class MainActivityTest {
         onView(withText(LibraryFragment.libraryItemArrayList.get(0).name)).check(matches(isDisplayed()));
         onView(withId(R.id.list)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
         onView(withText(activityTestRule.getActivity().getString(R.string.all_discounts))).check(matches(isDisplayed()));
-        onView(withText(DiscountListFragment.discountItemArrayList.get(0).name)).check(matches(isDisplayed()));
+        onView(withText(DiscountItem.discount0.name)).check(matches(isDisplayed()));
 
         activityTestRule.getActivity().backStack();
         onView(withText(activityTestRule.getActivity().getString(R.string.library))).check(matches(isDisplayed()));
@@ -66,4 +66,9 @@ public class MainActivityTest {
         onView(withText(activityTestRule.getActivity().getString(R.string.library))).check(matches(isDisplayed()));
         onView(withText(LibraryFragment.libraryItemArrayList.get(0).name)).check(matches(isDisplayed()));
     }
+
+//    @Test
+//    public void testAddItemIntoShoppingCart(){
+//        //until here
+//    }
 }

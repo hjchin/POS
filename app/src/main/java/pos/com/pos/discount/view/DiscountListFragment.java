@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
 import pos.com.pos.R;
 import pos.com.pos.databinding.FragmentLeftFrameBinding;
 import pos.com.pos.discount.model.DiscountItem;
@@ -18,23 +16,6 @@ import pos.com.pos.discount.model.DiscountItem;
 public class DiscountListFragment extends Fragment {
 
     private Callback callback;
-
-    public static ArrayList<DiscountItem> discountItemArrayList;
-
-    public static final DiscountItem discount0 = new DiscountItem("discountA","Discount A",0);
-    public static final DiscountItem discount10 = new DiscountItem("discountB","Discount B",10);
-    public static final DiscountItem discount355 = new DiscountItem("discount3","Discount C",35.5);
-    public static final DiscountItem discount50 = new DiscountItem("discount4","Discount D",50);
-    public static final DiscountItem discount100 = new DiscountItem("discount5","Discount E",100);
-
-    static{
-        discountItemArrayList = new ArrayList<>();
-        discountItemArrayList.add(discount0);
-        discountItemArrayList.add(discount10);
-        discountItemArrayList.add(discount355);
-        discountItemArrayList.add(discount50);
-        discountItemArrayList.add(discount100);
-    }
 
     public DiscountListFragment() {
     }
@@ -55,7 +36,7 @@ public class DiscountListFragment extends Fragment {
         FragmentLeftFrameBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_left_frame,container,false);
         binding.frameName.setText(getString(R.string.all_discounts));
         binding.list.setLayoutManager(new LinearLayoutManager(container.getContext()));
-        binding.list.setAdapter(new DiscountAdapter(discountItemArrayList, callback));
+        binding.list.setAdapter(new DiscountAdapter(DiscountItem.discountItemArrayList, callback));
         return binding.getRoot();
     }
 
