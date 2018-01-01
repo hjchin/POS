@@ -75,6 +75,13 @@ public class ShoppingCart {
         calTotal();
     }
 
+    public boolean has(ShoppingCartItem scItem){
+        if(shoppingList.get(getId(scItem)) == null){
+            return false;
+        }
+        return true;
+    }
+
     private String getId(ShoppingCartItem item){
         return String.valueOf(item.getItem().id)+"_"+item.getDiscount().id;
     }
@@ -90,6 +97,7 @@ public class ShoppingCart {
             charge += entry.getValue().totalAfterDiscount();
         }
     }
+
 
     public String getSubTotalString(){
         return Util.formatDisplay(subTotal);

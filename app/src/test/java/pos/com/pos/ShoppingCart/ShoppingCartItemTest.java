@@ -1,4 +1,4 @@
-package pos.com.pos;
+package pos.com.pos.ShoppingCart;
 
 import org.junit.Test;
 
@@ -13,11 +13,11 @@ import static org.junit.Assert.assertEquals;
  * Created by HJ Chin on 31/12/2017.
  */
 
-public class ShoppingCartModelTest {
+public class ShoppingCartItemTest {
 
     private Item skuItem;
 
-    public ShoppingCartModelTest(){
+    public ShoppingCartItemTest(){
         skuItem = new Item();
         skuItem.title = "product A";
         skuItem.price = 100;
@@ -26,7 +26,7 @@ public class ShoppingCartModelTest {
     @Test
     public void testNoDiscount(){
 
-        DiscountItem discountItem0 = DiscountListFragment.discountItemArrayList.get(0);
+        DiscountItem discountItem0 = DiscountItem.discount0;
 
         ShoppingCartItem cartItem1 = new ShoppingCartItem(
                 skuItem,
@@ -48,7 +48,7 @@ public class ShoppingCartModelTest {
 
     @Test
     public void test10Discount(){
-        DiscountItem discountItem10 = DiscountListFragment.discountItemArrayList.get(1);
+        DiscountItem discountItem10 = DiscountItem.discount10;
 
         ShoppingCartItem cartItem3 = new ShoppingCartItem(
                 skuItem,
@@ -71,7 +71,7 @@ public class ShoppingCartModelTest {
 
     @Test
     public void test355Discount(){
-        DiscountItem discountItem355 = DiscountListFragment.discountItemArrayList.get(2);
+        DiscountItem discountItem355 = DiscountItem.discount355;
 
         ShoppingCartItem cartItem1 = new ShoppingCartItem(
                 skuItem,
@@ -94,7 +94,7 @@ public class ShoppingCartModelTest {
 
     @Test
     public void test100Discount(){
-        DiscountItem discountItem100 = DiscountListFragment.discountItemArrayList.get(4);
+        DiscountItem discountItem100 = DiscountItem.discount100;
 
         ShoppingCartItem cartItem1 = new ShoppingCartItem(
                 skuItem,
@@ -113,5 +113,25 @@ public class ShoppingCartModelTest {
         assertEquals("100.00",cartItem1.totalBeforeDiscountString());
         assertEquals("0.00",cartItem1.totalAfterDiscountString());
         assertEquals("100.00",cartItem1.totalDiscountString());
+    }
+
+    @Test
+    public void testSetQuantity(){
+        DiscountItem discountItem100 = DiscountItem.discount100;
+
+        ShoppingCartItem cartItem1 = new ShoppingCartItem(
+                skuItem,
+                discountItem100,
+                1);
+
+        assertEquals("100.00",cartItem1.totalBeforeDiscountString());
+        assertEquals("0.00",cartItem1.totalAfterDiscountString());
+        assertEquals("100.00",cartItem1.totalDiscountString());
+
+        cartItem1.setQuantity(200);
+
+        assertEquals("20000.00",cartItem1.totalBeforeDiscountString());
+        assertEquals("0.00",cartItem1.totalAfterDiscountString());
+        assertEquals("20000.00",cartItem1.totalDiscountString());
     }
 }

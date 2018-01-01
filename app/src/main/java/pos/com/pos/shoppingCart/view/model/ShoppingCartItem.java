@@ -1,7 +1,5 @@
 package pos.com.pos.shoppingCart.view.model;
 
-import java.text.DecimalFormat;
-
 import pos.com.pos.discount.model.DiscountItem;
 import pos.com.pos.item.model.Item;
 import pos.com.pos.util.Util;
@@ -12,8 +10,8 @@ import pos.com.pos.util.Util;
 
 public class ShoppingCartItem {
 
-    private Item item;
-    private DiscountItem discountItem;
+    private final Item item;
+    private final DiscountItem discountItem;
     private double totalDiscount;
     private int quantity;
     private Double totalAfterDiscount;
@@ -97,6 +95,8 @@ public class ShoppingCartItem {
         return item;
     }
 
-
-
+    public void setQuantity(int quantity){
+        this.quantity = quantity;
+        calTotal();
+    }
 }
