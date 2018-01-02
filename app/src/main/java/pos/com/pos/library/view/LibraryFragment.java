@@ -13,6 +13,9 @@ import java.util.ArrayList;
 
 import pos.com.pos.R;
 import pos.com.pos.databinding.FragmentLeftFrameBinding;
+import pos.com.pos.library.model.DiscountItem;
+import pos.com.pos.library.model.Item;
+import pos.com.pos.library.model.SKUItem;
 
 /**
  * A fragment representing a list of Items.
@@ -23,14 +26,6 @@ import pos.com.pos.databinding.FragmentLeftFrameBinding;
 public class LibraryFragment extends Fragment {
 
     private Callback callback;
-
-    public static ArrayList<Item> libraryItemArrayList;
-
-    static{
-        libraryItemArrayList = new ArrayList<>();
-        libraryItemArrayList.add(new DiscountItem("discount", "All Discounts"));
-        libraryItemArrayList.add(new ItemListItem("item", "All Items"));
-    }
 
     public LibraryFragment() {
     }
@@ -51,7 +46,7 @@ public class LibraryFragment extends Fragment {
         FragmentLeftFrameBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_left_frame,container,false);
         binding.frameName.setText(getString(R.string.library));
         binding.list.setLayoutManager(new LinearLayoutManager(container.getContext()));
-        binding.list.setAdapter(new LibraryAdapter(libraryItemArrayList, callback));
+        binding.list.setAdapter(new LibraryAdapter(Item.libraryItemArrayList, callback));
         return binding.getRoot();
     }
 

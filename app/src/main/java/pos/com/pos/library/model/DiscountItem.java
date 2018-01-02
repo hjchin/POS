@@ -1,4 +1,4 @@
-package pos.com.pos.library.view;
+package pos.com.pos.library.model;
 
 /**
  * Created by HJ Chin on 28/12/2017.

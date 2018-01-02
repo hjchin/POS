@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import pos.com.pos.R;
 import pos.com.pos.databinding.FragmentLibraryItemBinding;
+import pos.com.pos.library.model.Item;
 
 import java.util.List;
 
