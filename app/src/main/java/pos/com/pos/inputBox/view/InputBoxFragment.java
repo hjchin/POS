@@ -4,17 +4,22 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.InputFilter;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 
 import pos.com.pos.R;
 import pos.com.pos.databinding.InputBoxBinding;
+import pos.com.pos.discount.model.DiscountItem;
 import pos.com.pos.inputBox.presenter.InputBoxPresenter;
 import pos.com.pos.shoppingCart.view.ShoppingCart;
 import pos.com.pos.shoppingCart.view.model.ShoppingCartItem;
+import pos.com.pos.util.InputFilterMinMax;
 import pos.com.pos.util.Util;
 
 /**
@@ -24,15 +29,14 @@ import pos.com.pos.util.Util;
 public class InputBoxFragment extends DialogFragment implements InputBoxFragmentView {
 
     public interface Callback{
-        void onCancel();
-        void onSave(ShoppingCartItem item);
+        void onSave();
     }
 
     private Callback callback;
     private InputBoxBinding binding;
     private InputBoxPresenter presenter;
 
-    private static String SHOPPING_CART_ITEM = "shoppingCartItem";
+    public static String SHOPPING_CART_ITEM = "shoppingCartItem";
 
     @Override
     public void onAttach(Activity activity) {
@@ -59,7 +63,12 @@ public class InputBoxFragment extends DialogFragment implements InputBoxFragment
 
         builder.setView(binding.getRoot());
 
-        presenter = new InputBoxPresenter(ShoppingCart.getInstance(), item,this);
+        presenter = new InputBoxPresenter(
+                ShoppingCart.getInstance(),
+                item,
+                this,
+                callback);
+
         return builder.create();
     }
 
@@ -71,7 +80,7 @@ public class InputBoxFragment extends DialogFragment implements InputBoxFragment
 
             @Override
             public void onClick(View view) {
-                callback.onCancel();
+                presenter.cancel();
             }
         });
 
@@ -91,7 +100,53 @@ public class InputBoxFragment extends DialogFragment implements InputBoxFragment
             }
         });
 
+        binding.btnIncrease.setOnClickListener(new View.OnClickListener(){
 
+            @Override
+            public void onClick(View view) {
+                presenter.increaseQuantity();
+            }
+        });
+
+        binding.quantity.setFilters(new InputFilter[]{new InputFilterMinMax(0,1000)});
+        binding.quantity.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    String value = ((EditText)v).getText().toString();
+                    try{
+                        presenter.setQuantity(Integer.parseInt(value));
+                    }catch (Exception e){
+
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        binding.discountA.setTag(DiscountItem.discountA);
+        binding.discountA.setOnCheckedChangeListener(new OnCheckChangeListener());
+        binding.discountB.setTag(DiscountItem.discountB);
+        binding.discountB.setOnCheckedChangeListener(new OnCheckChangeListener());
+        binding.discountC.setTag(DiscountItem.discountC);
+        binding.discountC.setOnCheckedChangeListener(new OnCheckChangeListener());
+        binding.discountD.setTag(DiscountItem.discountD);
+        binding.discountD.setOnCheckedChangeListener(new OnCheckChangeListener());
+        binding.discountE.setTag(DiscountItem.discountE);
+        binding.discountE.setOnCheckedChangeListener(new OnCheckChangeListener());
+
+        setDiscount(item.getDiscount());
+    }
+
+    private class OnCheckChangeListener implements CompoundButton.OnCheckedChangeListener{
+
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            DiscountItem discountItem = (DiscountItem)compoundButton.getTag();
+            if(b){
+                presenter.setDiscount(discountItem);
+            }
+        }
     }
 
     @Override
@@ -101,6 +156,62 @@ public class InputBoxFragment extends DialogFragment implements InputBoxFragment
 
     @Override
     public void finish() {
+        dismiss();
+    }
 
+    @Override
+    public void setDiscount(DiscountItem discountItem) {
+
+        binding.discountA.setOnCheckedChangeListener(null);
+        binding.discountB.setOnCheckedChangeListener(null);
+        binding.discountC.setOnCheckedChangeListener(null);
+        binding.discountD.setOnCheckedChangeListener(null);
+        binding.discountE.setOnCheckedChangeListener(null);
+
+        if(discountItem.compareTo(DiscountItem.discountA) == 0){
+            binding.discountA.setChecked(true);
+            binding.discountB.setChecked(false);
+            binding.discountC.setChecked(false);
+            binding.discountD.setChecked(false);
+            binding.discountE.setChecked(false);
+        }
+
+        if(discountItem.compareTo(DiscountItem.discountB) == 0){
+            binding.discountA.setChecked(false);
+            binding.discountB.setChecked(true);
+            binding.discountC.setChecked(false);
+            binding.discountD.setChecked(false);
+            binding.discountE.setChecked(false);
+        }
+
+        if(discountItem.compareTo(DiscountItem.discountC) == 0){
+            binding.discountA.setChecked(false);
+            binding.discountB.setChecked(false);
+            binding.discountC.setChecked(true);
+            binding.discountD.setChecked(false);
+            binding.discountE.setChecked(false);
+        }
+
+        if(discountItem.compareTo(DiscountItem.discountD) == 0){
+            binding.discountA.setChecked(false);
+            binding.discountB.setChecked(false);
+            binding.discountC.setChecked(false);
+            binding.discountD.setChecked(true);
+            binding.discountE.setChecked(false);
+        }
+
+        if(discountItem.compareTo(DiscountItem.discountE) == 0){
+            binding.discountA.setChecked(false);
+            binding.discountB.setChecked(false);
+            binding.discountC.setChecked(false);
+            binding.discountD.setChecked(false);
+            binding.discountE.setChecked(true);
+        }
+
+        binding.discountA.setOnCheckedChangeListener(new OnCheckChangeListener());
+        binding.discountB.setOnCheckedChangeListener(new OnCheckChangeListener());
+        binding.discountC.setOnCheckedChangeListener(new OnCheckChangeListener());
+        binding.discountD.setOnCheckedChangeListener(new OnCheckChangeListener());
+        binding.discountE.setOnCheckedChangeListener(new OnCheckChangeListener());
     }
 }
