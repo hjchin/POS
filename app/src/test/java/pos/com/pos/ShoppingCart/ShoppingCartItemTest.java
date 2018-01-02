@@ -3,7 +3,6 @@ package pos.com.pos.ShoppingCart;
 import org.junit.Test;
 
 import pos.com.pos.discount.model.DiscountItem;
-import pos.com.pos.discount.view.DiscountListFragment;
 import pos.com.pos.item.model.Item;
 import pos.com.pos.shoppingCart.view.model.ShoppingCartItem;
 
@@ -26,7 +25,7 @@ public class ShoppingCartItemTest {
     @Test
     public void testNoDiscount(){
 
-        DiscountItem discountItem0 = DiscountItem.discount0;
+        DiscountItem discountItem0 = DiscountItem.discountA;
 
         ShoppingCartItem cartItem1 = new ShoppingCartItem(
                 skuItem,
@@ -48,7 +47,7 @@ public class ShoppingCartItemTest {
 
     @Test
     public void test10Discount(){
-        DiscountItem discountItem10 = DiscountItem.discount10;
+        DiscountItem discountItem10 = DiscountItem.discountB;
 
         ShoppingCartItem cartItem3 = new ShoppingCartItem(
                 skuItem,
@@ -71,7 +70,7 @@ public class ShoppingCartItemTest {
 
     @Test
     public void test355Discount(){
-        DiscountItem discountItem355 = DiscountItem.discount355;
+        DiscountItem discountItem355 = DiscountItem.discountC;
 
         ShoppingCartItem cartItem1 = new ShoppingCartItem(
                 skuItem,
@@ -94,7 +93,7 @@ public class ShoppingCartItemTest {
 
     @Test
     public void test100Discount(){
-        DiscountItem discountItem100 = DiscountItem.discount100;
+        DiscountItem discountItem100 = DiscountItem.discountE;
 
         ShoppingCartItem cartItem1 = new ShoppingCartItem(
                 skuItem,
@@ -117,7 +116,7 @@ public class ShoppingCartItemTest {
 
     @Test
     public void testSetQuantity(){
-        DiscountItem discountItem100 = DiscountItem.discount100;
+        DiscountItem discountItem100 = DiscountItem.discountE;
 
         ShoppingCartItem cartItem1 = new ShoppingCartItem(
                 skuItem,

@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import pos.com.pos.discount.model.DiscountItem;
-import pos.com.pos.discount.view.DiscountListFragment;
 import pos.com.pos.item.model.Item;
 import pos.com.pos.shoppingCart.view.ShoppingCart;
 import pos.com.pos.shoppingCart.view.model.ShoppingCartItem;
@@ -47,7 +46,7 @@ public class ShoppingCartTest {
         * Add single Item
         * */
         ShoppingCartItem item = new ShoppingCartItem(skuItem,
-                DiscountItem.discount0,
+                DiscountItem.discountA,
                 1);
         shoppingCart.addItem(item);
         assertEquals("100.00",shoppingCart.getSubTotalString());
@@ -59,7 +58,7 @@ public class ShoppingCartTest {
         * Add another same skuItem with different discount
         * */
         ShoppingCartItem item2 = new ShoppingCartItem(skuItem,
-                DiscountItem.discount10,
+                DiscountItem.discountB,
                 2);
 
         shoppingCart.addItem(item2);
@@ -72,7 +71,7 @@ public class ShoppingCartTest {
         * Add another same skuItem with same previous discount
         * */
         ShoppingCartItem item3 = new ShoppingCartItem(skuItem,
-                DiscountItem.discount10,
+                DiscountItem.discountB,
                 1);
 
         shoppingCart.addItem(item3);
@@ -88,10 +87,10 @@ public class ShoppingCartTest {
                 200);
 
         /*
-        * Add different skuItem with discount355
+        * Add different skuItem with discountC
         * */
         ShoppingCartItem item4 = new ShoppingCartItem(skuItem2,
-                DiscountItem.discount355,
+                DiscountItem.discountC,
                 2);
 
         shoppingCart.addItem(item4);
@@ -106,10 +105,10 @@ public class ShoppingCartTest {
                 "thumbUrl",
                 50);
         /*
-            Add different skuItem with discount100
+            Add different skuItem with discountE
          */
         ShoppingCartItem item5 = new ShoppingCartItem(skuItem3,
-                DiscountItem.discount100,
+                DiscountItem.discountE,
                 1);
         shoppingCart.addItem(item5);
         assertEquals("850.00",shoppingCart.getSubTotalString());
@@ -129,7 +128,7 @@ public class ShoppingCartTest {
                 100);
 
         ShoppingCartItem item = new ShoppingCartItem(skuItem,
-                DiscountItem.discount0,
+                DiscountItem.discountA,
                 1);
         shoppingCart.addItem(item);
         assertEquals("100.00",shoppingCart.getSubTotalString());
@@ -141,7 +140,7 @@ public class ShoppingCartTest {
             Update with new shopping cart item creation
          */
         ShoppingCartItem updateItem = new ShoppingCartItem(skuItem,
-                DiscountItem.discount0,
+                DiscountItem.discountA,
                 5);
 
         shoppingCart.updateItem(updateItem);
@@ -165,7 +164,7 @@ public class ShoppingCartTest {
             update with invalid item
          */
         ShoppingCartItem updateItem2 = new ShoppingCartItem(skuItem,
-                DiscountItem.discount10,
+                DiscountItem.discountB,
                 2);
         try{
             shoppingCart.updateItem(updateItem2);
@@ -186,12 +185,12 @@ public class ShoppingCartTest {
                 100);
 
         ShoppingCartItem item = new ShoppingCartItem(skuItem,
-                DiscountItem.discount0,
+                DiscountItem.discountA,
                 1);
         shoppingCart.addItem(item);
 
         ShoppingCartItem item2 = new ShoppingCartItem(skuItem,
-                DiscountItem.discount10,
+                DiscountItem.discountB,
                 10);
         shoppingCart.addItem(item2);
 
@@ -207,7 +206,7 @@ public class ShoppingCartTest {
         assertEquals(1,shoppingCart.getItemCount());
 
         ShoppingCartItem item3 = new ShoppingCartItem(skuItem,
-                DiscountItem.discount50,
+                DiscountItem.discountD,
                 10);
         try{
             shoppingCart.removeItem(item3);
@@ -228,12 +227,12 @@ public class ShoppingCartTest {
                 100);
 
         ShoppingCartItem item = new ShoppingCartItem(skuItem,
-                DiscountItem.discount0,
+                DiscountItem.discountA,
                 1);
         shoppingCart.addItem(item);
 
         ShoppingCartItem item2 = new ShoppingCartItem(skuItem,
-                DiscountItem.discount10,
+                DiscountItem.discountB,
                 10);
         shoppingCart.addItem(item2);
 
@@ -261,12 +260,12 @@ public class ShoppingCartTest {
                 100);
 
         ShoppingCartItem item = new ShoppingCartItem(skuItem,
-                DiscountItem.discount0,
+                DiscountItem.discountA,
                 1);
         shoppingCart.addItem(item);
 
         ShoppingCartItem item2 = new ShoppingCartItem(skuItem,
-                DiscountItem.discount10,
+                DiscountItem.discountB,
                 10);
 
         assertEquals(true,shoppingCart.has(item));

@@ -60,6 +60,6 @@ public class DiscountListFragment extends Fragment {
 
 
     public interface Callback {
-        void onItemClick(pos.com.pos.library.view.DiscountItem item);
+        void onItemClick(pos.com.pos.library.model.DiscountItem item);
     }
 }

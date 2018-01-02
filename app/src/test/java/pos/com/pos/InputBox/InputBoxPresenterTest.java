@@ -3,9 +3,7 @@ package pos.com.pos.InputBox;
 import org.junit.Before;
 import org.junit.Test;
 
-import dalvik.annotation.TestTarget;
 import pos.com.pos.discount.model.DiscountItem;
-import pos.com.pos.discount.view.DiscountListFragment;
 import pos.com.pos.inputBox.presenter.InputBoxPresenter;
 import pos.com.pos.inputBox.view.InputBoxFragmentView;
 import pos.com.pos.item.model.Item;
@@ -30,7 +28,7 @@ public class InputBoxPresenterTest {
     private ShoppingCartItem createSimpleItem(){
         return new ShoppingCartItem(
                 new Item(1,"Product A","","",100),
-                DiscountItem.discount0,
+                DiscountItem.discountA,
                 1
         );
     }
@@ -146,7 +144,7 @@ public class InputBoxPresenterTest {
     @Test
     public void testAssignDiscount(){
         InputBoxPresenter presenter = createPresenterWithSingleItem();
-        presenter.setDiscount(DiscountItem.discount10);
+        presenter.setDiscount(DiscountItem.discountB);
         presenter.save();
 
         assertEquals(1,ShoppingCart.getInstance().getItemCount());
@@ -201,7 +199,7 @@ public class InputBoxPresenterTest {
         /*
             Change Discount rate
          */
-        presenter.setDiscount(DiscountItem.discount50);
+        presenter.setDiscount(DiscountItem.discountD);
         presenter.save();
 
         assertEquals(1,ShoppingCart.getInstance().getItemCount());
@@ -212,10 +210,10 @@ public class InputBoxPresenterTest {
         /*
             Change multiple time discount rate
          */
-        presenter.setDiscount(DiscountItem.discount10);
-        presenter.setDiscount(DiscountItem.discount100);
-        presenter.setDiscount(DiscountItem.discount355);
-        presenter.setDiscount(DiscountItem.discount0);
+        presenter.setDiscount(DiscountItem.discountB);
+        presenter.setDiscount(DiscountItem.discountE);
+        presenter.setDiscount(DiscountItem.discountC);
+        presenter.setDiscount(DiscountItem.discountA);
         presenter.save();
 
         assertEquals(1,ShoppingCart.getInstance().getItemCount());
@@ -226,7 +224,7 @@ public class InputBoxPresenterTest {
         /*
             set the same discount rate
          */
-        presenter.setDiscount(DiscountItem.discount0);
+        presenter.setDiscount(DiscountItem.discountA);
         presenter.save();
 
         assertEquals(1,ShoppingCart.getInstance().getItemCount());
@@ -237,7 +235,7 @@ public class InputBoxPresenterTest {
         /*
             Change the discount rate and quantity
          */
-        presenter.setDiscount(DiscountItem.discount50);
+        presenter.setDiscount(DiscountItem.discountD);
         presenter.setQuantity(50);
         presenter.save();
 
@@ -284,21 +282,21 @@ public class InputBoxPresenterTest {
 
         ShoppingCartItem item1 = new ShoppingCartItem(
                 new Item(1,"product A","","",100),
-                DiscountItem.discount50,
+                DiscountItem.discountD,
                 10
         );
         ShoppingCart.getInstance().addItem(item1);
 
         ShoppingCartItem item2 = new ShoppingCartItem(
                 new Item(2,"product B","","",5),
-                DiscountItem.discount50,
+                DiscountItem.discountD,
                 5
         );
         ShoppingCart.getInstance().addItem(item2);
 
         ShoppingCartItem item3 = new ShoppingCartItem(
                 new Item(3,"product C","","",20),
-                DiscountItem.discount0,
+                DiscountItem.discountA,
                 10
         );
         ShoppingCart.getInstance().addItem(item3);
@@ -352,7 +350,7 @@ public class InputBoxPresenterTest {
         );
 
         presenter.setQuantity(0);
-        presenter.setDiscount(DiscountItem.discount50);
+        presenter.setDiscount(DiscountItem.discountD);
         presenter.cancel();
 
         assertEquals(1,ShoppingCart.getInstance().getItemCount());

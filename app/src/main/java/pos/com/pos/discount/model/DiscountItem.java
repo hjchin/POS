@@ -1,5 +1,7 @@
 package pos.com.pos.discount.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -8,7 +10,7 @@ import java.util.ArrayList;
  * Created by HJ Chin on 30/12/2017.
  */
 
-public class DiscountItem implements Comparable<DiscountItem>{
+public class DiscountItem implements Comparable<DiscountItem>, Parcelable{
     public String id;
     public String name;
     public double discount;
@@ -19,6 +21,24 @@ public class DiscountItem implements Comparable<DiscountItem>{
         this.discount = discount;
     }
 
+    protected DiscountItem(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        discount = in.readDouble();
+    }
+
+    public static final Creator<DiscountItem> CREATOR = new Creator<DiscountItem>() {
+        @Override
+        public DiscountItem createFromParcel(Parcel in) {
+            return new DiscountItem(in);
+        }
+
+        @Override
+        public DiscountItem[] newArray(int size) {
+            return new DiscountItem[size];
+        }
+    };
+
     @Override
     public int compareTo(@NonNull DiscountItem o) {
         return id.compareTo(o.id);
@@ -26,19 +46,29 @@ public class DiscountItem implements Comparable<DiscountItem>{
 
     public static final ArrayList<DiscountItem> discountItemArrayList = new ArrayList<>();
 
-    public static final DiscountItem discount0 = new DiscountItem("discountA","Discount A",0);
-    public static final DiscountItem discount10 = new DiscountItem("discountB","Discount B",10);
-    public static final DiscountItem discount355 = new DiscountItem("discount3","Discount C",35.5);
-    public static final DiscountItem discount50 = new DiscountItem("discount4","Discount D",50);
-    public static final DiscountItem discount100 = new DiscountItem("discount5","Discount E",100);
+    public static final DiscountItem discountA = new DiscountItem("discountA","Discount A",0);
+    public static final DiscountItem discountB = new DiscountItem("discountB","Discount B",10);
+    public static final DiscountItem discountC = new DiscountItem("discountC","Discount C",35.5);
+    public static final DiscountItem discountD = new DiscountItem("discountD","Discount D",50);
+    public static final DiscountItem discountE = new DiscountItem("discountE","Discount E",100);
 
     static{
-        discountItemArrayList.add(discount0);
-        discountItemArrayList.add(discount10);
-        discountItemArrayList.add(discount355);
-        discountItemArrayList.add(discount50);
-        discountItemArrayList.add(discount100);
+        discountItemArrayList.add(discountA);
+        discountItemArrayList.add(discountB);
+        discountItemArrayList.add(discountC);
+        discountItemArrayList.add(discountD);
+        discountItemArrayList.add(discountE);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(name);
+        parcel.writeDouble(discount);
+    }
 }
