@@ -5,10 +5,11 @@ import org.junit.Test;
 
 import pos.com.pos.discount.model.DiscountItem;
 import pos.com.pos.inputBox.presenter.InputBoxPresenter;
+import pos.com.pos.inputBox.view.InputBoxFragment;
 import pos.com.pos.inputBox.view.InputBoxFragmentView;
 import pos.com.pos.item.model.Item;
-import pos.com.pos.shoppingCart.view.ShoppingCart;
-import pos.com.pos.shoppingCart.view.model.ShoppingCartItem;
+import pos.com.pos.shoppingCart.ShoppingCart;
+import pos.com.pos.shoppingCart.model.ShoppingCartItem;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -38,7 +39,9 @@ public class InputBoxPresenterTest {
         InputBoxPresenter presenter = new InputBoxPresenter(
                 ShoppingCart.getInstance(),
                 item,
-                mock(InputBoxFragmentView.class)
+                mock(InputBoxFragmentView.class),
+                mock(InputBoxFragment.Callback.class)
+
         );
 
         return presenter;
@@ -172,7 +175,8 @@ public class InputBoxPresenterTest {
         InputBoxPresenter presenter = new InputBoxPresenter(
                 ShoppingCart.getInstance(),
                 item,
-                mock(InputBoxFragmentView.class)
+                mock(InputBoxFragmentView.class),
+                mock(InputBoxFragment.Callback.class)
         );
 
         presenter.setQuantity(10);
@@ -193,7 +197,8 @@ public class InputBoxPresenterTest {
         InputBoxPresenter presenter = new InputBoxPresenter(
                 ShoppingCart.getInstance(),
                 item,
-                mock(InputBoxFragmentView.class)
+                mock(InputBoxFragmentView.class),
+                mock(InputBoxFragment.Callback.class)
         );
 
         /*
@@ -262,7 +267,8 @@ public class InputBoxPresenterTest {
         InputBoxPresenter presenter = new InputBoxPresenter(
             ShoppingCart.getInstance(),
             item,
-            mock(InputBoxFragmentView.class)
+            mock(InputBoxFragmentView.class),
+            mock(InputBoxFragment.Callback.class)
         );
 
         presenter.setQuantity(0);
@@ -309,7 +315,8 @@ public class InputBoxPresenterTest {
         InputBoxPresenter presenter1 = new InputBoxPresenter(
                 ShoppingCart.getInstance(),
                 item1,
-                mock(InputBoxFragmentView.class)
+                mock(InputBoxFragmentView.class),
+                mock(InputBoxFragment.Callback.class)
         );
         presenter1.setQuantity(0);
         presenter1.save();
@@ -322,7 +329,8 @@ public class InputBoxPresenterTest {
         InputBoxPresenter presenter2 = new InputBoxPresenter(
             ShoppingCart.getInstance(),
             item2,
-            mock(InputBoxFragmentView.class)
+            mock(InputBoxFragmentView.class),
+            mock(InputBoxFragment.Callback.class)
         );
         presenter2.setQuantity(0);
         presenter2.save();
@@ -346,7 +354,8 @@ public class InputBoxPresenterTest {
         InputBoxPresenter presenter = new InputBoxPresenter(
                 ShoppingCart.getInstance(),
                 item,
-                mock(InputBoxFragmentView.class)
+                mock(InputBoxFragmentView.class),
+                mock(InputBoxFragment.Callback.class)
         );
 
         presenter.setQuantity(0);

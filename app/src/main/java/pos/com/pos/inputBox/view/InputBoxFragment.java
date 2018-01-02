@@ -17,8 +17,8 @@ import pos.com.pos.R;
 import pos.com.pos.databinding.InputBoxBinding;
 import pos.com.pos.discount.model.DiscountItem;
 import pos.com.pos.inputBox.presenter.InputBoxPresenter;
-import pos.com.pos.shoppingCart.view.ShoppingCart;
-import pos.com.pos.shoppingCart.view.model.ShoppingCartItem;
+import pos.com.pos.shoppingCart.ShoppingCart;
+import pos.com.pos.shoppingCart.model.ShoppingCartItem;
 import pos.com.pos.util.InputFilterMinMax;
 import pos.com.pos.util.Util;
 
@@ -29,7 +29,7 @@ import pos.com.pos.util.Util;
 public class InputBoxFragment extends DialogFragment implements InputBoxFragmentView {
 
     public interface Callback{
-        void onSave();
+        void onInputBoxSave();
     }
 
     private Callback callback;

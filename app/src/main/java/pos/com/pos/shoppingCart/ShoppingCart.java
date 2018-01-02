@@ -1,9 +1,9 @@
-package pos.com.pos.shoppingCart.view;
+package pos.com.pos.shoppingCart;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import pos.com.pos.shoppingCart.view.model.ShoppingCartItem;
+import pos.com.pos.shoppingCart.model.ShoppingCartItem;
 import pos.com.pos.util.Util;
 
 /**
@@ -70,6 +70,10 @@ public class ShoppingCart {
         return shoppingList.size();
     }
 
+    public ShoppingCartItem[] getItems(){
+        return shoppingList.values().toArray(new ShoppingCartItem[shoppingList.size()]);
+    }
+
     public void emptyCart(){
         shoppingList.clear();
         calTotal();
@@ -97,7 +101,6 @@ public class ShoppingCart {
             charge += entry.getValue().totalAfterDiscount();
         }
     }
-
 
     public String getSubTotalString(){
         return Util.formatDisplay(subTotal);

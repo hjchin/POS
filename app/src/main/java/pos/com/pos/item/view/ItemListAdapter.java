@@ -52,7 +52,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 if (null != callback) {
-                    callback.onItemClick(holder.item);
+                    callback.onSKUItemClick(holder.item);
                 }
             }
         });

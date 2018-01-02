@@ -1,4 +1,10 @@
-package pos.com.pos.shoppingCart.view.model;
+package pos.com.pos.shoppingCart.model;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import pos.com.pos.discount.model.DiscountItem;
 import pos.com.pos.item.model.Item;
@@ -8,12 +14,12 @@ import pos.com.pos.util.Util;
  * Created by HJ Chin on 31/12/2017.
  */
 
-public class ShoppingCartItem {
+public class ShoppingCartItem implements Parcelable, pos.com.pos.shoppingCart.model.Item{
 
     private final Item item;
     private final DiscountItem discountItem;
+    private final int quantity;
     private double totalDiscount;
-    private int quantity;
     private Double totalAfterDiscount;
     private Double totalBeforeDiscount;
 
@@ -23,6 +29,35 @@ public class ShoppingCartItem {
         this.quantity = quantity;
         calTotal();
     }
+
+    protected ShoppingCartItem(Parcel in) {
+        item = in.readParcelable(Item.class.getClassLoader());
+        discountItem = in.readParcelable(DiscountItem.class.getClassLoader());
+        totalDiscount = in.readDouble();
+        quantity = in.readInt();
+        if (in.readByte() == 0) {
+            totalAfterDiscount = null;
+        } else {
+            totalAfterDiscount = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            totalBeforeDiscount = null;
+        } else {
+            totalBeforeDiscount = in.readDouble();
+        }
+    }
+
+    public static final Creator<ShoppingCartItem> CREATOR = new Creator<ShoppingCartItem>() {
+        @Override
+        public ShoppingCartItem createFromParcel(Parcel in) {
+            return new ShoppingCartItem(in);
+        }
+
+        @Override
+        public ShoppingCartItem[] newArray(int size) {
+            return new ShoppingCartItem[size];
+        }
+    };
 
     private void calTotal(){
         //discount is in form of XX%
@@ -95,8 +130,26 @@ public class ShoppingCartItem {
         return item;
     }
 
-    public void setQuantity(int quantity){
-        this.quantity = quantity;
-        calTotal();
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeDouble(totalDiscount);
+        parcel.writeInt(quantity);
+        if (totalAfterDiscount == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeDouble(totalAfterDiscount);
+        }
+        if (totalBeforeDiscount == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeDouble(totalBeforeDiscount);
+        }
     }
 }

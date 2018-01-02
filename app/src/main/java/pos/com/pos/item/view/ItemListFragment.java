@@ -102,6 +102,6 @@ public class ItemListFragment extends Fragment implements ItemListView{
     }
 
     public interface Callback {
-        void onItemClick(Item item);
+        void onSKUItemClick(Item item);
     }
 }

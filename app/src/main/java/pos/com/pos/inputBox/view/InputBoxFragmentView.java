@@ -1,7 +1,7 @@
 package pos.com.pos.inputBox.view;
 
 import pos.com.pos.discount.model.DiscountItem;
-import pos.com.pos.shoppingCart.view.model.ShoppingCartItem;
+import pos.com.pos.shoppingCart.model.ShoppingCartItem;
 
 /**
  * Created by HJ Chin on 1/1/2018.

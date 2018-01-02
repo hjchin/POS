@@ -1,10 +1,11 @@
 package pos.com.pos.inputBox.presenter;
 
 import pos.com.pos.discount.model.DiscountItem;
+import pos.com.pos.inputBox.view.InputBoxFragment;
 import pos.com.pos.inputBox.view.InputBoxFragmentView;
 import pos.com.pos.item.model.Item;
-import pos.com.pos.shoppingCart.view.ShoppingCart;
-import pos.com.pos.shoppingCart.view.model.ShoppingCartItem;
+import pos.com.pos.shoppingCart.ShoppingCart;
+import pos.com.pos.shoppingCart.model.ShoppingCartItem;
 
 /**
  * Created by HJ Chin on 1/1/2018.
@@ -15,21 +16,24 @@ public class InputBoxPresenter {
     private ShoppingCartItem item;
     private InputBoxFragmentView view;
     private ShoppingCart shoppingCart;
-    private ShoppingCartItem itemFoundinShoppingCart;
+    private ShoppingCartItem itemFoundInShoppingCart;
+    private InputBoxFragment.Callback callback;
 
     public InputBoxPresenter(
             ShoppingCart shoppingCart,
             ShoppingCartItem item,
-            InputBoxFragmentView view){
+            InputBoxFragmentView view,
+            InputBoxFragment.Callback callback){
         this.shoppingCart = shoppingCart;
         this.item = item;
         this.view = view;
+        this.callback = callback;
         view.initView(item);
     }
 
     public void setQuantity(int quantity){
         if(quantity > -1 && quantity < 1001){
-            item.setQuantity(quantity);
+            item = new ShoppingCartItem(item.getItem(),item.getDiscount(),quantity);
             view.refreshQuantity(quantity);
         }else{
             throw new IllegalArgumentException("quantity must be between 0 and 1000");
@@ -71,7 +75,7 @@ public class InputBoxPresenter {
         }
 
         if(shoppingCart.has(item)) {
-            itemFoundinShoppingCart = item;
+            itemFoundInShoppingCart = item;
         }
 
         item = new ShoppingCartItem(
@@ -83,6 +87,8 @@ public class InputBoxPresenter {
             discountItem,
             item.getQuantity()
         );
+
+        view.setDiscount(discountItem);
     }
 
     public void cancel(){
@@ -92,11 +98,11 @@ public class InputBoxPresenter {
     public void save(){
 
         //existing item discount change
-        if(itemFoundinShoppingCart != null){
+        if(itemFoundInShoppingCart != null){
             if(item.getQuantity() > 0) {
                 shoppingCart.addItem(item);
-                shoppingCart.removeItem(itemFoundinShoppingCart);
-                itemFoundinShoppingCart = null;
+                shoppingCart.removeItem(itemFoundInShoppingCart);
+                itemFoundInShoppingCart = null;
             }else{
                 //do nothing
                 return;
@@ -119,6 +125,7 @@ public class InputBoxPresenter {
             return;
         }
 
+        callback.onInputBoxSave();
         view.finish();
     }
 }

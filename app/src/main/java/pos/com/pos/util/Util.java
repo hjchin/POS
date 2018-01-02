@@ -16,4 +16,12 @@ public class Util {
     public static String formatMoney(double value){
         return "$"+formatDisplay(value);
     }
+
+    public static String formatMoney(String value){
+        return "$"+value;
+    }
+
+    public static String formatChargeText(String chargeInString){
+        return "Charge "+formatMoney(chargeInString);
+    }
 }

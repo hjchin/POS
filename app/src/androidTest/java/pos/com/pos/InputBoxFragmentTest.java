@@ -2,11 +2,9 @@ package pos.com.pos;
 
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
-import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.Switch;
 
@@ -17,7 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import pos.com.pos.main.view.MainActivity;
-import pos.com.pos.shoppingCart.view.ShoppingCart;
+import pos.com.pos.shoppingCart.ShoppingCart;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -129,7 +127,7 @@ public class InputBoxFragmentTest {
         onView(withId(R.id.discountE)).check(matches(isChecked()));
     }
 
-    private static class CheckViewAction implements ViewAction{
+    public static class CheckViewAction implements ViewAction{
 
         @Override
         public Matcher<View> getConstraints() {

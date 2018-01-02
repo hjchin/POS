@@ -68,6 +68,7 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:$rootProject.ext.roomVersion"
 
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.7.22'
 
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"

@@ -5,8 +5,8 @@ import org.junit.Test;
 
 import pos.com.pos.discount.model.DiscountItem;
 import pos.com.pos.item.model.Item;
-import pos.com.pos.shoppingCart.view.ShoppingCart;
-import pos.com.pos.shoppingCart.view.model.ShoppingCartItem;
+import pos.com.pos.shoppingCart.ShoppingCart;
+import pos.com.pos.shoppingCart.model.ShoppingCartItem;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -147,17 +147,6 @@ public class ShoppingCartTest {
         assertEquals("500.00",shoppingCart.getSubTotalString());
         assertEquals("0.00",shoppingCart.getDiscountString());
         assertEquals("500.00",shoppingCart.getChargeString());
-        assertEquals(1,shoppingCart.getItemCount());
-
-        /*
-            Update with shopping cart item changes
-         */
-        updateItem.setQuantity(10);
-        shoppingCart.updateItem(updateItem);
-
-        assertEquals("1000.00",shoppingCart.getSubTotalString());
-        assertEquals("0.00",shoppingCart.getDiscountString());
-        assertEquals("1000.00",shoppingCart.getChargeString());
         assertEquals(1,shoppingCart.getItemCount());
 
         /*

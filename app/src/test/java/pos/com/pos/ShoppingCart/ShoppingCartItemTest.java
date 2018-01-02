@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import pos.com.pos.discount.model.DiscountItem;
 import pos.com.pos.item.model.Item;
-import pos.com.pos.shoppingCart.view.model.ShoppingCartItem;
+import pos.com.pos.shoppingCart.model.ShoppingCartItem;
 
 import static org.junit.Assert.assertEquals;
 
@@ -112,25 +112,5 @@ public class ShoppingCartItemTest {
         assertEquals("100.00",cartItem1.totalBeforeDiscountString());
         assertEquals("0.00",cartItem1.totalAfterDiscountString());
         assertEquals("100.00",cartItem1.totalDiscountString());
-    }
-
-    @Test
-    public void testSetQuantity(){
-        DiscountItem discountItem100 = DiscountItem.discountE;
-
-        ShoppingCartItem cartItem1 = new ShoppingCartItem(
-                skuItem,
-                discountItem100,
-                1);
-
-        assertEquals("100.00",cartItem1.totalBeforeDiscountString());
-        assertEquals("0.00",cartItem1.totalAfterDiscountString());
-        assertEquals("100.00",cartItem1.totalDiscountString());
-
-        cartItem1.setQuantity(200);
-
-        assertEquals("20000.00",cartItem1.totalBeforeDiscountString());
-        assertEquals("0.00",cartItem1.totalAfterDiscountString());
-        assertEquals("20000.00",cartItem1.totalDiscountString());
     }
 }

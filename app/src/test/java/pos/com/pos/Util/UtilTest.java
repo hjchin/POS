@@ -1,4 +1,4 @@
-package pos.com.pos;
+package pos.com.pos.Util;
 
 import org.junit.Test;
 
@@ -31,5 +31,18 @@ public class UtilTest {
 
         double v6 = 11111;
         assertEquals("11111.00",Util.formatDisplay(v6));
+    }
+
+    @Test
+    public void testFormatMoney(){
+        double value = 0.0;
+        assertEquals("$0.00",Util.formatMoney(value));
+
+        double v3 = 0.11;
+        assertEquals("$0.11",Util.formatMoney(v3));
+
+
+        String v4 = "100.00";
+        assertEquals("$100.00",Util.formatMoney(v4));
     }
 }
