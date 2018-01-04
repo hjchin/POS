@@ -16,6 +16,7 @@ import pos.com.pos.util.Util;
 
 public class ShoppingCartItem implements Parcelable, pos.com.pos.shoppingCart.model.Item{
 
+    private final String id;
     private final Item item;
     private final DiscountItem discountItem;
     private final int quantity;
@@ -23,18 +24,25 @@ public class ShoppingCartItem implements Parcelable, pos.com.pos.shoppingCart.mo
     private Double totalAfterDiscount;
     private Double totalBeforeDiscount;
 
+    private static int runningNumber = 1;
+    private static int getNextId(){
+        return runningNumber++;
+    }
+
     public ShoppingCartItem(Item skuItem, DiscountItem discountItem, int quantity){
         this.item = skuItem;
         this.discountItem = discountItem;
         this.quantity = quantity;
+        id = String.valueOf(getNextId());
         calTotal();
     }
 
     protected ShoppingCartItem(Parcel in) {
+        id = in.readString();
         item = in.readParcelable(Item.class.getClassLoader());
         discountItem = in.readParcelable(DiscountItem.class.getClassLoader());
-        totalDiscount = in.readDouble();
         quantity = in.readInt();
+        totalDiscount = in.readDouble();
         if (in.readByte() == 0) {
             totalAfterDiscount = null;
         } else {
@@ -130,6 +138,10 @@ public class ShoppingCartItem implements Parcelable, pos.com.pos.shoppingCart.mo
         return item;
     }
 
+    public String getId(){
+        return id;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -137,8 +149,12 @@ public class ShoppingCartItem implements Parcelable, pos.com.pos.shoppingCart.mo
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeDouble(totalDiscount);
+
+        parcel.writeString(id);
+        parcel.writeParcelable(item, i);
+        parcel.writeParcelable(discountItem, i);
         parcel.writeInt(quantity);
+        parcel.writeDouble(totalDiscount);
         if (totalAfterDiscount == null) {
             parcel.writeByte((byte) 0);
         } else {
@@ -152,4 +168,5 @@ public class ShoppingCartItem implements Parcelable, pos.com.pos.shoppingCart.mo
             parcel.writeDouble(totalBeforeDiscount);
         }
     }
+
 }

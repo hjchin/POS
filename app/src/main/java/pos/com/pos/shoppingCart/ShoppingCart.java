@@ -15,6 +15,7 @@ public class ShoppingCart {
     private static ShoppingCart cart;
 
     private Map<String,ShoppingCartItem> shoppingList;
+    private Map<String, String> typeList; //Map<<item_id>_<discount_id>,<item_id>>
 
     private double subTotal;
     private double discount;
@@ -22,6 +23,7 @@ public class ShoppingCart {
 
     private ShoppingCart(){
         shoppingList = new LinkedHashMap<>();
+        typeList = new LinkedHashMap<>();
     }
 
     public static ShoppingCart getInstance(){
@@ -33,14 +35,24 @@ public class ShoppingCart {
     }
 
     public void addItem(ShoppingCartItem scItem){
-        ShoppingCartItem retrieved = shoppingList.get(getId(scItem));
 
-        if(retrieved == null){
-            shoppingList.put(getId(scItem),scItem);
+        String retrievedId = typeList.get(getType(scItem));
+//        System.out.println("add");
+//        System.out.println("Item:"+scItem.getItemName()+
+//                ", subtotal:"+scItem.totalBeforeDiscountString()+
+//                ", discount:"+String.valueOf(scItem.totalDiscount())+
+//                ", charge:"+String.valueOf(scItem.totalAfterDiscountString()));
+
+        if(retrievedId == null){
+            shoppingList.put(scItem.getId(),scItem);
+            typeList.put(getType(scItem),scItem.getId());
         }else{
+            ShoppingCartItem retrieved = shoppingList.get(retrievedId);
             int newTotal = retrieved.getQuantity()+scItem.getQuantity();
             ShoppingCartItem mergeScItem = new ShoppingCartItem(scItem.getItem(),scItem.getDiscount(),newTotal);
-            shoppingList.put(getId(mergeScItem),mergeScItem);
+            shoppingList.put(mergeScItem.getId(),mergeScItem);
+            removeItem(retrieved);
+            typeList.put(getType(mergeScItem), mergeScItem.getId());
         }
 
         calTotal();
@@ -48,21 +60,34 @@ public class ShoppingCart {
 
     public void updateItem(ShoppingCartItem scItem){
 
-        if(shoppingList.get(getId(scItem)) == null){
+        String retrievedId = typeList.get(getType(scItem));
+
+        if(retrievedId == null){
             throw new IllegalArgumentException("Invalid shopping cart item");
+        }else{
+            ShoppingCartItem retrieved = shoppingList.get(retrievedId);
+            shoppingList.put(scItem.getId(),scItem);
+            removeItem(retrieved);
+            typeList.put(getType(scItem), scItem.getId());
         }
 
-        shoppingList.put(getId(scItem),scItem);
         calTotal();
     }
 
     public void removeItem(ShoppingCartItem scItem){
 
-        if(shoppingList.get(getId(scItem)) == null){
+        if(shoppingList.get(scItem.getId()) == null){
             throw new IllegalArgumentException("Invalid shopping cart item");
         }
 
-        shoppingList.remove(getId(scItem));
+//        System.out.println("remove");
+//        System.out.println("Item:"+scItem.getItemName()+
+//                ", subtotal:"+scItem.totalBeforeDiscountString()+
+//                ", discount:"+String.valueOf(scItem.totalDiscount())+
+//                ", charge:"+String.valueOf(scItem.totalAfterDiscountString()));
+
+        shoppingList.remove(scItem.getId());
+        typeList.remove(getType(scItem));
         calTotal();
     }
 
@@ -76,17 +101,18 @@ public class ShoppingCart {
 
     public void emptyCart(){
         shoppingList.clear();
+        typeList.clear();
         calTotal();
     }
 
     public boolean has(ShoppingCartItem scItem){
-        if(shoppingList.get(getId(scItem)) == null){
+        if(shoppingList.get(scItem.getId()) == null){
             return false;
         }
         return true;
     }
 
-    private String getId(ShoppingCartItem item){
+    private String getType(ShoppingCartItem item){
         return String.valueOf(item.getItem().id)+"_"+item.getDiscount().id;
     }
 
@@ -95,10 +121,18 @@ public class ShoppingCart {
         discount = 0;
         charge = 0;
 
+        //System.out.println("Cal");
+
         for(Map.Entry<String, ShoppingCartItem> entry: shoppingList.entrySet()){
             subTotal += entry.getValue().totalBeforeDiscount();
             discount += entry.getValue().totalDiscount();
             charge += entry.getValue().totalAfterDiscount();
+
+//            System.out.println("Item:"+entry.getValue().getItemName()+
+//                    ", subtotal:"+entry.getValue().totalBeforeDiscountString()+
+//                    ", discount:"+String.valueOf(entry.getValue().totalDiscount())+
+//                    ", charge:"+String.valueOf(entry.getValue().totalAfterDiscountString()));
+
         }
     }
 
