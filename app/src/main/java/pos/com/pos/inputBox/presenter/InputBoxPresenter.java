@@ -109,11 +109,11 @@ public class InputBoxPresenter {
             }
         }
         //existing item quantity change
-        else if(shoppingCart.has(item)){
+        else if(shoppingCart.hasType(item)){
             if(item.getQuantity() > 0)
-                shoppingCart.updateItem(item);
+                shoppingCart.updateItemByType(item);
             else
-                shoppingCart.removeItem(item);
+                shoppingCart.removeItemByType(item);
         }
         //new item
         else if(item.getQuantity() > 0){

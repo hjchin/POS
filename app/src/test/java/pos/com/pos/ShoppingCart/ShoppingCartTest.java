@@ -1,9 +1,7 @@
 package pos.com.pos.ShoppingCart;
 
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 
 import pos.com.pos.discount.model.DiscountItem;
 import pos.com.pos.item.model.Item;
@@ -223,7 +221,7 @@ public class ShoppingCartTest {
                 DiscountItem.discountA,
                 5);
 
-        shoppingCart.updateItem(updateItem);
+        shoppingCart.updateItemByType(updateItem);
         assertEquals("500.00",shoppingCart.getSubTotalString());
         assertEquals("0.00",shoppingCart.getDiscountString());
         assertEquals("500.00",shoppingCart.getChargeString());
@@ -236,7 +234,7 @@ public class ShoppingCartTest {
                 DiscountItem.discountB,
                 2);
         try{
-            shoppingCart.updateItem(updateItem2);
+            shoppingCart.updateItemByType(updateItem2);
             assertTrue("successfully update invalid item",false);
         }catch(IllegalArgumentException ex){
             assertTrue("invalid item to update",true);

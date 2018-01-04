@@ -107,6 +107,26 @@ public class MainActivityTest {
         onView(withId(R.id.charge_button)).check(matches(withText(Util.formatChargeText(shoppingCart.getChargeString()))));
 
         /*
+            add same item with different quantity
+         */
+        onView(withId(R.id.list)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
+        onView(withId(R.id.quantity)).perform(replaceText("10"),pressImeActionButton());
+        onView(withId(R.id.btnSave)).perform(click());
+
+        shoppingCart = ShoppingCart.getInstance();
+        items = shoppingCart.getItems();
+
+        onView(withId(R.id.shopping_cart_list)).check(matches(atPosition(0,hasDescendant(withText(items[0].getItem().title)))));
+        onView(withId(R.id.shopping_cart_list)).check(matches(atPosition(0,hasDescendant(withText("x"+items[0].getQuantity())))));
+        onView(withId(R.id.shopping_cart_list)).check(matches(atPosition(0,hasDescendant(withText(Util.formatMoney(items[0].totalBeforeDiscount()))))));
+
+        onView(withId(R.id.shopping_cart_list)).check(matches(atPosition(1,hasDescendant(withText(Util.formatMoney(shoppingCart.getSubTotalString()))))));
+        onView(withId(R.id.shopping_cart_list)).perform(RecyclerViewActions.scrollToPosition(2));
+        onView(withId(R.id.shopping_cart_list)).check(matches(atPosition(2,hasDescendant(withText("("+Util.formatMoney(shoppingCart.getDiscountString()+")"))))));
+
+        onView(withId(R.id.charge_button)).check(matches(withText(Util.formatChargeText(shoppingCart.getChargeString()))));
+
+        /*
             add second item with quantity 10, discountB
          */
         onView(withId(R.id.list)).perform(RecyclerViewActions.actionOnItemAtPosition(1,click()));

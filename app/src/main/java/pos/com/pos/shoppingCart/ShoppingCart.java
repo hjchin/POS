@@ -49,16 +49,16 @@ public class ShoppingCart {
         }else{
             ShoppingCartItem retrieved = shoppingList.get(retrievedId);
             int newTotal = retrieved.getQuantity()+scItem.getQuantity();
+            removeItemByType(retrieved);
             ShoppingCartItem mergeScItem = new ShoppingCartItem(scItem.getItem(),scItem.getDiscount(),newTotal);
             shoppingList.put(mergeScItem.getId(),mergeScItem);
-            removeItem(retrieved);
             typeList.put(getType(mergeScItem), mergeScItem.getId());
         }
 
         calTotal();
     }
 
-    public void updateItem(ShoppingCartItem scItem){
+    public void updateItemByType(ShoppingCartItem scItem){
 
         String retrievedId = typeList.get(getType(scItem));
 
@@ -66,8 +66,8 @@ public class ShoppingCart {
             throw new IllegalArgumentException("Invalid shopping cart item");
         }else{
             ShoppingCartItem retrieved = shoppingList.get(retrievedId);
+            removeItemByType(retrieved);
             shoppingList.put(scItem.getId(),scItem);
-            removeItem(retrieved);
             typeList.put(getType(scItem), scItem.getId());
         }
 
@@ -91,6 +91,16 @@ public class ShoppingCart {
         calTotal();
     }
 
+    public void removeItemByType(ShoppingCartItem scItem){
+        String retrievedIid = typeList.get(getType(scItem));
+
+        if(retrievedIid == null){
+            throw new IllegalArgumentException("shopping cart item with same type not found");
+        }
+
+        removeItem(shoppingList.get(retrievedIid));
+    }
+
     public int getItemCount(){
         return shoppingList.size();
     }
@@ -107,6 +117,13 @@ public class ShoppingCart {
 
     public boolean has(ShoppingCartItem scItem){
         if(shoppingList.get(scItem.getId()) == null){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean hasType(ShoppingCartItem scItem){
+        if(typeList.get(getType(scItem)) == null){
             return false;
         }
         return true;
