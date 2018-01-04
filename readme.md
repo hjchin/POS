@@ -1,5 +1,3 @@
-*This project is in development*
-
 # Overview
 1. This sample POS system has an screen with 2 fragments, left fragment and right fragment.
 
